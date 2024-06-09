@@ -39,5 +39,14 @@ class InputPageCubit extends Cubit<InputPageState> {
   }
 }
 
-String processContents(String text) =>
-    "'${text.trim().replaceAll("'", r"\'")}'";
+String processContents(String text) {
+  var result = "'${text.trim().replaceAll("'", r"\'")}'";
+  result = cleanParagraph(result);
+  return result;
+}
+
+String cleanParagraph(String text) {
+  String cleaned = text.replaceAll('\n', ' ');
+  cleaned = cleaned.replaceAll(RegExp(r'\s+'), ' ');
+  return cleaned.trim();
+}

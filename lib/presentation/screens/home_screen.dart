@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_1.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_2.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_3.dart';
+import 'package:sda_explorers_app/data/lessons/lesson_4.dart';
 import 'package:sda_explorers_app/presentation/screens/input_screen.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     Lesson1ContentsMap,
     Lesson2ContentsMap,
     Lesson3ContentsMap,
+    Lesson4ContentsMap
   ];
 
   @override

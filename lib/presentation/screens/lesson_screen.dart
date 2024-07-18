@@ -56,3 +56,7 @@ TextStyle? getTextStyle(String key) {
   }
   return null;
 }
+
+Widget? getTextObject(String key){
+
+}

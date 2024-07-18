@@ -1,3 +1,4 @@
+// ignore: constant_identifier_names
 const Map<String, String> Lesson4ContentsMap = {
   'L4T1': 'Pinagmulan ng Kasalanan sa Lupa at ang Lunas nito',
   'L4M2':

@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
           child: Center(
             child: Neumorphic(
               child: Container(
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   height: 400,
                   width: double.infinity,
                   child: Padding(

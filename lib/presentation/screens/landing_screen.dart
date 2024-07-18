@@ -22,7 +22,7 @@ class LandingScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               addVerticalSpace(padding),
-              Padding(
+              const Padding(
                 padding: sidePadding,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,14 +49,14 @@ class LandingScreen extends StatelessWidget {
                 padding: sidePadding,
                 child: Text(
                   'Hello',
-                  style: themeData.textTheme.bodyText2,
+                  style: themeData.textTheme.bodyMedium,
                 ),
               ),
               Padding(
                 padding: sidePadding,
                 child: Text(
                   'Good Morning, User!',
-                  style: themeData.textTheme.headline1,
+                  style: themeData.textTheme.headlineLarge,
                 ),
               ),
               const Padding(

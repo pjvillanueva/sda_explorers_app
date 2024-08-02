@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sda_explorers_app/presentation/widgets/text_styles.dart';
+import 'package:sda_explorers_app/presentation/widgets/lesson_texts.dart';
 
 class LessonScreen extends StatelessWidget {
   const LessonScreen(
@@ -11,6 +11,11 @@ class LessonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
+
+    // Determine the index of the first "P" type
+    int firstParagraphIndex =
+        lessonContents.keys.toList().indexWhere((key) => key[2] == 'P');
+
     return Scaffold(
         appBar: AppBar(
             title: Text('Lesson $lessonNumber'),
@@ -18,45 +23,39 @@ class LessonScreen extends StatelessWidget {
         body: Scrollbar(
             controller: scrollController,
             child: Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                padding: const EdgeInsets.all(20.0),
                 child: ListView.separated(
                     controller: scrollController,
                     itemCount: lessonContents.length,
                     itemBuilder: (context, index) {
                       final key = lessonContents.keys.elementAt(index);
                       final value = lessonContents[key] ?? '';
-                      return GestureDetector(
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Text(value, style: getTextStyle(key))),
-                          onTap: () {});
+                      bool isFirstParagraph = index == firstParagraphIndex;
+                      return getTextContainer(key, value, isFirstParagraph);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(height: 10.0)))));
   }
 }
 
-TextStyle? getTextStyle(String key) {
+Widget? getTextContainer(String key, String value, bool isFirst) {
   var textType = key[2];
+
   switch (textType) {
     case 'T':
-      return TITLE_STYLE;
+      return LessonTitle(value, key);
     case 'M':
-      return MEMORY_VERSE_STYLE;
+      return MemoryVerse(value, key);
     case 'P':
-      return PARAGRAPH_STYLE;
+      return Paragraph(value, key, isFirst: isFirst);
     case 'S':
-      return SUBTITLE_TYPE;
+      return Subtitle(value, key);
     case 'Q':
-      return QUESTION_TYPE;
+      return Question(value, key);
     case 'B':
-      return BIBLE_VERSE_TYPE;
+      return BibleVerse(value, key);
     case 'I':
-      return INDEX_STYLE;
+      return Index(value, key);
   }
   return null;
-}
-
-Widget? getTextObject(String key){
-
 }

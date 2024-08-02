@@ -4,3 +4,7 @@
 //T - text type code
 //1 - placeInSequence
 enum TextType { title, memoryVerse, subtitle, paragraph, question, bibleVerse }
+
+addIndention(String text) {
+  return '          $text';
+}

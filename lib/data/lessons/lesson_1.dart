@@ -65,7 +65,7 @@ const Lesson1ContentsMap = {
 };
 
 const L1T1 = 'Sino ang Lumalang sa Sanlibutang Ito at sa Taong Naririto?';
-const L1M2 = 'Ng pasimula ay nilikha ng Dios ang langit at Lupa. Genesis 1:1.';
+const L1M2 = 'Ng pasimula ay nilikha ng Dios ang langit at Lupa. - Genesis 1:1.';
 const L1P3 =
     'Marahil bawat tao ay malimit mamangha sa kung sino ang lumalang sa sanlibutan? Sino ang lumalang sa mga tao? Bakit ako naririto? Sino ang Dios? Saan siya naroroon? Ano ang mangyayari sa sanlibutan at sa taong naririto? Bakit nagkakasala ang tao? Paano natin malalaman ang matuwid?';
 const L1P4 =
@@ -152,7 +152,7 @@ const L1P48 =
     "Huwag nating sabihing hindi tayo naniniwala sa Dios dahil lamang sa hindi natin Siya nakikita o nauunawaan, kung paano Siya gumagawa. Ipaghalimbawang ikaw ay may bulag na tuta, Hindi siya makapag-isip tulad mo. Hindi niya magagawa ang nagagawa mo. Hindi ba kamangmangang sabihin ng tuta na hindi ka lumitaw dahil lamang sa hindi siya makakita at makaunawa sa iyo?";
 const L1S49 = "ANG ALAALA NG DIOS SA PAGLALANG";
 const L1Q50 =
-    "12 Sa katapusan ng isang linggong panahon ng paglalang. paano ipinagdiwang ng Dios ang kanyang kahanga-hangang gawain?";
+    "12. Sa katapusan ng isang linggong panahon ng paglalang. paano ipinagdiwang ng Dios ang kanyang kahanga-hangang gawain?";
 const L1B51 =
     "Nayari ang langit at ang lupa, at ang lahat ng mga bagay sa mga iyon. Nang ikapitong araw ay natapos ng Diyos ang gawain na kanyang ginawa, at nagpahinga siya nang IKAPITONG araw mula sa lahat ng gawaing kanyang ginawa. At BINASBASAN ng Diyos ang Ikapitong araw at kanyang ginawang BANAL, sapagkat sa araw na iyon ay nagpahinga ang Diyos sa lahat ng gawain na kanyang ginawa. -Genesis 2:1-3.";
 const L1B52 =
@@ -167,7 +167,7 @@ const L1B56 =
 const L1P57 =
     "Kahanga-hangang bagay ang pag-aaral ninyo sa mga araling ito habang kayo'y bata pa. Libu-libong mga matatanda ang naghahangad na pinili sana nila na sundin ang Dios nang sila'y bata pa. Nasumpungan nila ngayon na sinayang nila ang kanilang buhay at \"walang kaluguran sa mga yaon.\"";
 const L1Q58 =
-    "14 Maaasahan ba ng mga Talubata na mauunawaan ang panukala ng Dios?";
+    "14. Maaasahan ba ng mga Talubata na mauunawaan ang panukala ng Dios?";
 const L1B59 =
     "At mula sa pagkasanggol ay iyong nalalaman ang mga banal na kasulatan na makapagpapadunong sa iyo sa ikaliligtas sa pamamagitan ng pananampalataya kay Cristo Jesus. - Timoteo 3:15.";
 const L1Q60 =

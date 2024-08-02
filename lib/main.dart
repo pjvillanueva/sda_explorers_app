@@ -53,3 +53,9 @@ class MyApp extends StatelessWidget {
 - EXPECTED RESULTS:
 - A MAP
 */
+
+
+//TODO:
+//1. Fix the splash screen
+//2. Create the texttype widgets
+//3. Fix error in the lesson page

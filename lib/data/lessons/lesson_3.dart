@@ -108,5 +108,6 @@ const Map<String, String> Lesson3ContentsMap = {
   'L3B61':
       'Hindi ba silang lahat ay mga espiritung tagapaglingkod, na mga sinugo upang magsipaglingkod sa kapakinabangan ng mangagmamana ng kaligtasan? - Hebreo 1:14.',
   'L3P62':
-      'Hinahanap ng mga anghel ang bawat taong tapat. Sila\'y isinusugo ng Dios upang tulungan ka kung ikaw ay nangangailangan lagi. Iyan ang dahilan kung bakit ikaw ay dapat manalangin lagi sa Panginoon, upang sumaiyong lagi ang maingat na pangangalaga ng mga anghel.'
+      'Hinahanap ng mga anghel ang bawat taong tapat. Sila\'y isinusugo ng Dios upang tulungan ka kung ikaw ay nangangailangan lagi. Iyan ang dahilan kung bakit ikaw ay dapat manalangin lagi sa Panginoon, upang sumaiyong lagi ang maingat na pangangalaga ng mga anghel.',
+  'L3N63': ''
 };

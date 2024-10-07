@@ -103,5 +103,6 @@ const Lesson5ContentsMap = {
   'L5P57':
       'Makatutulong para sa inyo na sauluhin ang Panalangin ng Panginoon (Ama Namin) na masusumpungan sa Mateo 6:9-13',
   'L5P58':
-      'Gawin ang unang hakbang papalapit kay Jesus - sundin Siya. Kung kayo\'y madapa, lumapit sa Kanya sa panalangin. Tutulungan kayo Niyang muling bumangon, ngunit huwag kailanman susuko. Nangako si Jesus, "Magtapat ka hanggang sa kamatayan at bibigyan kita ng putong ng buhay." Apocalipsis 2:10'
+      'Gawin ang unang hakbang papalapit kay Jesus - sundin Siya. Kung kayo\'y madapa, lumapit sa Kanya sa panalangin. Tutulungan kayo Niyang muling bumangon, ngunit huwag kailanman susuko. Nangako si Jesus, "Magtapat ka hanggang sa kamatayan at bibigyan kita ng putong ng buhay." Apocalipsis 2:10',
+  'L5N59': ''
 };

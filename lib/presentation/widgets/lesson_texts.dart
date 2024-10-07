@@ -89,7 +89,9 @@ class Paragraph extends StatelessWidget implements LessonTexts {
                 ),
               ),
             TextSpan(
-              text: isFirst && text.length > 1 ? text.substring(1) : addIndention(text),
+              text: isFirst && text.length > 1
+                  ? text.substring(1)
+                  : addIndention(text),
             ),
           ],
         ),
@@ -189,6 +191,23 @@ class Index extends StatelessWidget implements LessonTexts {
           fontStyle: FontStyle.italic,
         ),
       ),
+    );
+  }
+}
+
+class ImageContainer extends StatelessWidget {
+  final String imageName;
+  final double height;
+
+  const ImageContainer(this.imageName, {Key? key, this.height = 300.0})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: height,
+      child: Image.asset('assets/images/$imageName', fit: BoxFit.cover),
     );
   }
 }

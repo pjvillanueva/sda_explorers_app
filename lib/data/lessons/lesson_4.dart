@@ -79,7 +79,8 @@ const Map<String, String> Lesson4ContentsMap = {
       'Ako\'y paroroon UPANG IPAGHANDA KO KAYO NG DAKONG KALALAGYAN. At kung Ako\'y pumaroon at kayo\'y maipaghahanda ng kalalagyan, ay muling paririto Ako, at kayo\'y tatanggapin ko sa Aking sarili; upang kung saan ako naroon, kayo naman ay dumoon. - Juan 14:2, 3.',
   'L4P45':
       'Si Jesus, na ngayo\'y kasama ng Kanyang Amang sumasa langit, ay naghahandang magbalik upang tipuning lahat ang Kanyang mga tapat. KANYANG DADALHIN SILA UPANG MAKASAMA NIYA. Isipin ninyo. Walang karamdaman at walang kamatayan - kundi walang hanggang buhay sa langit na kasama ni Jesus. Hinihintay ni Jesus na ibigay mo ang iyong puso sa Kanya ngayon. Naghahangad Siyang patawarin ka at iligtas ka mula sa kasalanan, at kung ikaw ay lalapit sa Kanya, dadalhin ka Niya sa wakas, upang makasama Niya sa tahanan sa langit.',
+  'L4N46': ''
   // 'L4S46': 'SUSUNOD NA ARALIN',
   // 'L4P47':
-      // 'Huwag kaligtaang ipadala ang inyong panuring papel upang tanggapin ninyo ang ika-5 aralin. Narito ang ilan sa mga tanong na pag-aaralan ninyo: ano ang kailangang gawin ng tao upang maligtas? Paano masasabi ng tao kung siya\'y waglit? Kailangan bang ipahayag natin ang ating mga kasalanan sa bayan? Paano matututong mananalangin ang isang tao?'
+  // 'Huwag kaligtaang ipadala ang inyong panuring papel upang tanggapin ninyo ang ika-5 aralin. Narito ang ilan sa mga tanong na pag-aaralan ninyo: ano ang kailangang gawin ng tao upang maligtas? Paano masasabi ng tao kung siya\'y waglit? Kailangan bang ipahayag natin ang ating mga kasalanan sa bayan? Paano matututong mananalangin ang isang tao?'
 };

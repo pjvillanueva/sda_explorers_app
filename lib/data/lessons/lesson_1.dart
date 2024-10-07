@@ -1,25 +1,29 @@
 // ignore_for_file: constant_identifier_names
 
-const Lesson1ContentsMap = {
+const Map<String, String> Lesson1ContentsMap = {
   'L1T1': L1T1,
   'L1M2': L1M2,
   'L1P3': L1P3,
   'L1P4': L1P4,
   'L1P5': L1P5,
   'L1S6': L1S6,
+  'L1Va': 'creation.png',
   'L1Q7': L1Q7,
   'L1B8': L1B8,
   'L1P9': L1P9,
   'L1Q10': L1Q10,
   'L1B11': L1B11,
+  'L1Vb': 'creator.jpg',
   'L1P12': L1P12,
   'L1Q13': L1Q13,
   'L1B14': L1B14,
   'L1P15': L1P15,
+  'L1Vc': 'holy_spirit_creator.jpg',
   'L1P16': L1P16,
   'L1P17': L1P17,
   'L1Q18': L1Q18,
   'L1B19': L1B19,
+  'L1Vd': 'trinity.png',
   'L1P20': L1P20,
   'L1S21': L1S21,
   'L1Q22': L1Q22,
@@ -27,19 +31,23 @@ const Lesson1ContentsMap = {
   'L1P24': L1P24,
   'L1P25': L1P25,
   'L1S26': L1S26,
+  'L1Ve': 'creation_of_plants.jpg',
   'L1Q27': L1Q27,
   'L1B28': L1B28,
   'L1B29': L1B29,
   'L1P30': L1P30,
   'L1Q31': L1Q31,
   'L1B32': L1B32,
+  'L1Vf': 'creation_of_man.jpg',
   'L1P33': L1P33,
   'L1S34': L1S34,
+  'L1Vg': 'stars.jpg',
   'L1Q35': L1Q35,
   'L1B36': L1B36,
   'L1Q37': L1Q37,
   'L1B38': L1B38,
   'L1B39': L1B39,
+  'L1Vh': 'solar_system.jpg',
   'L1P40': L1P40,
   'L1S41': L1S41,
   'L1Q42': L1Q42,
@@ -49,11 +57,13 @@ const Lesson1ContentsMap = {
   'L1B46': L1B46,
   'L1P47': L1P47,
   'L1S49': L1S49,
+  'L1Vi' : 'sabbath_rest.jpg',
   'L1Q50': L1Q50,
   'L1B51': L1B51,
   'L1B52': L1B52,
   'L1P53': L1P53,
   'L1S54': L1S54,
+  'L1Vj' : 'youth.jpg',
   'L1Q55': L1Q55,
   'L1B56': L1B56,
   'L1Q58': L1Q58,
@@ -62,10 +72,12 @@ const Lesson1ContentsMap = {
   'L1B61': L1B61,
   'L1P62': L1P62,
   'L1P63': L1P63,
+  'L1N64': ''
 };
 
 const L1T1 = 'Sino ang Lumalang sa Sanlibutang Ito at sa Taong Naririto?';
-const L1M2 = 'Ng pasimula ay nilikha ng Dios ang langit at Lupa. - Genesis 1:1.';
+const L1M2 =
+    'Ng pasimula ay nilikha ng Dios ang langit at Lupa. - Genesis 1:1.';
 const L1P3 =
     'Marahil bawat tao ay malimit mamangha sa kung sino ang lumalang sa sanlibutan? Sino ang lumalang sa mga tao? Bakit ako naririto? Sino ang Dios? Saan siya naroroon? Ano ang mangyayari sa sanlibutan at sa taong naririto? Bakit nagkakasala ang tao? Paano natin malalaman ang matuwid?';
 const L1P4 =

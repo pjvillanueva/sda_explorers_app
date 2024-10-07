@@ -108,7 +108,8 @@ const Lesson6ContentsMap = {
   'L6S59': 'EDENG ISINAULI.',
   'L6P60':
       'Sa nakaraang daan-daang taon at higit pa, isang tanging pagdiriin ang ibinigay sa pangangaral ng dumarating na kaharian ni Jesus. Marami sa ating mga aralin sa hinaharap ang mauukol dito. Sa susunod na lingo, pag-aaralan natin ang tungkol sa LANGIT-ang Edeng isinauli.',
+  'L6N61': '',
   // 'L6S61': 'SUSUNOD NA ARALIN',
   // 'L6P62':
-      // 'Ang ika-7 Aralin ay isang nakakawiling pag-aaral tungkol sa langit-nasauling Eden. Magkakaroon ba ng mga hayop sa langit? Magkakaroon ba ng mga bata roon? Kumakain ba o nagtatrabaho ang mga tao sa langit? Magkakakilanlan ba tayo sa isa\'t isa sa langit?'
+  // 'Ang ika-7 Aralin ay isang nakakawiling pag-aaral tungkol sa langit-nasauling Eden. Magkakaroon ba ng mga hayop sa langit? Magkakaroon ba ng mga bata roon? Kumakain ba o nagtatrabaho ang mga tao sa langit? Magkakakilanlan ba tayo sa isa\'t isa sa langit?'
 };

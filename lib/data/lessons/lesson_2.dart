@@ -58,6 +58,7 @@ const Lesson2ContentsMap = {
   'L2P55': L2P55,
   'L2P56': L2P56,
   'L2P57': L2P57,
+  'L2N58': ''
 };
 
 const L2T1 = 'Saan Natin Kinuha Ang Ating Biblia?';

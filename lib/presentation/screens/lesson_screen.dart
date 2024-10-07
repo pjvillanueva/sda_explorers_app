@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/buttons/navigate_to_test_button.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_texts.dart';
 
 class LessonScreen extends StatelessWidget {
@@ -56,6 +57,10 @@ Widget? getTextContainer(String key, String value, bool isFirst) {
       return BibleVerse(value, key);
     case 'I':
       return Index(value, key);
+    case 'N':
+      return const NavigateToTest(testNumber: 1, testContents: {});
+    case 'V':
+      return ImageContainer(value);
   }
   return null;
 }

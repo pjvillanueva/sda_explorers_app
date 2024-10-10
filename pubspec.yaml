@@ -39,6 +39,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/logos/
+    - assets/bibles/
 
 flutter_launcher_icons:
   android: "launcher_icon"

@@ -24,6 +24,9 @@ import 'package:sda_explorers_app/data/lessons/lesson_7.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_8.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_9.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/app_drawer.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/explorers_progress_bar.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/greetings_box.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/todays_verse_card.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -88,38 +91,12 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.blue[400]!, Colors.blue[600]!],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Welcome, Explorer!',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Ready to embark on your Bible quiz journey?',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              const GreetingsBox(),
+              const ExplorerProgressBar(),
+              const SizedBox(height: 10),
+              const TodaysVerseCard(),
+              const SizedBox(height: 10),
+              const Divider(),
               const SizedBox(height: 30),
               Expanded(
                 child: Column(

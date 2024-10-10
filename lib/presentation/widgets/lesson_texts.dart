@@ -25,7 +25,7 @@ class LessonTitle extends StatelessWidget implements LessonTexts {
       child: Text(
         text,
         style: GoogleFonts.robotoSlab(
-            fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+            fontSize: 24, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -48,7 +48,7 @@ class MemoryVerse extends StatelessWidget implements LessonTexts {
         child: Text(
           text,
           style: GoogleFonts.raleway(
-              fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic),
+              fontSize: 18, color: Theme.of(context).colorScheme.onSurface, fontStyle: FontStyle.italic),
         ),
       ),
     );
@@ -71,7 +71,7 @@ class Paragraph extends StatelessWidget implements LessonTexts {
       child: RichText(
         textAlign: TextAlign.start,
         text: TextSpan(
-          style: GoogleFonts.nunito(fontSize: 16, color: Colors.black),
+          style: GoogleFonts.nunito(fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
           children: [
             if (isFirst && text.isNotEmpty)
               WidgetSpan(
@@ -82,7 +82,7 @@ class Paragraph extends StatelessWidget implements LessonTexts {
                     style: GoogleFonts.playfairDisplay(
                       fontSize: 40,
                       height: 1,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -118,7 +118,7 @@ class Subtitle extends StatelessWidget implements LessonTexts {
         text,
         textAlign: TextAlign.center,
         style: GoogleFonts.lora(
-            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+            color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -139,7 +139,7 @@ class Question extends StatelessWidget implements LessonTexts {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: GoogleFonts.openSans(color: Colors.black, fontSize: 16),
+        style: GoogleFonts.openSans(color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
       ),
     );
   }
@@ -163,7 +163,7 @@ class BibleVerse extends StatelessWidget implements LessonTexts {
         child: Text(
           text,
           style: GoogleFonts.libreBaskerville(
-              color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
+              color: Theme.of(context).colorScheme.onSurface, fontSize: 17, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -186,7 +186,7 @@ class Index extends StatelessWidget implements LessonTexts {
       child: Text(
         text,
         style: GoogleFonts.montserrat(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.onSurface,
           fontSize: 14,
           fontStyle: FontStyle.italic,
         ),

@@ -52,3 +52,6 @@ class SDAExplorersApp extends StatelessWidget {
         child: HomeScreen());
   }
 }
+
+
+//Tagalo Bible Version - Ang Biblia (1905)

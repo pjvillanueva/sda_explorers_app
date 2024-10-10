@@ -93,7 +93,7 @@ const L1P9 =
     'Kung paniniwalaan lamang ng tao ang pangungusap na ito ng Biblia! Ginawa ng Dios ang lahat ng bagay.';
 const L1Q10 = '2. Sino ang tumulong sa paglikha sa sanlibutang ito?';
 const L1B11 =
-    "Ang Dios na nagsalita nang unang panahon sa ating mga magulang sa iba't ibang panahon at sa iba't ibang paraan sa pamamagitan ng mga propeta, ay nagsalita sa atin sa mga huling araw na ito sa pamamagitan ng KANYANG ANAK, na siyang itinalaga na tagapagmana ng lahat ng mga bagay, na sa pamamagitan naman Niya'y ginawa ang sanlibutan. - Hebreo 1:1, 2.";
+    "Ang Dios, na nagsalita nang unang panahon sa ating mga magulang sa iba't ibang panahon at sa iba't ibang paraan sa pamamagitan ng mga propeta, ay nagsalita sa atin sa mga huling araw na ito sa pamamagitan ng KANYANG ANAK, na siyang itinalaga na tagapagmana ng lahat ng mga bagay, na sa pamamagitan naman Niya'y ginawa ang sanlibutan. - Hebreo 1:1, 2.";
 const L1P12 =
     "Tumulong si Jesus sa kahanga-hangang gawain ng paglalang ng sanlibutan. Alam mo, si Jesus ay nanahan sa langit kasama ang Kanyang Ama bago Siya naparito sa lupa na isang sanggol. Minsan ay sinabi Niya sa Kanyang mga tagapakinig na tinukoy ang Kanyang sarili na tinapay ng buhay, \"Ako ang tinapay ng buhay na bumabang galing sa langit.\" Juan 6:51. At muling sinabi nya sa Juan 17:5 \"At ngayon Ama, luwalhatiin mo Ako sa iyo rin ng kaluwalhatiang aking tinamo sa iyo bago ang sanlibutan ay naging gayon, \"Makikita mo kung bakit si Jesus ay nagmamalasakit sa sanlibutang ito, sapagkat Siya'y tumulong sa paglalang nito sa pasimula.";
 const L1Q13 =

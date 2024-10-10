@@ -49,6 +49,11 @@ class _AppDrawerState extends State<AppDrawer> {
                     title: const Text('Bible'),
                     onTap: () {}),
                 ListTile(
+                    leading: Icon(Icons.church_outlined,
+                        color: Theme.of(context).colorScheme.secondary),
+                    title: const Text('Church'),
+                    onTap: () {}),
+                ListTile(
                     leading: Icon(Icons.input,
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Input'),
@@ -57,6 +62,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         builder: (context) => const InputPage(),
                       ));
                     }),
+                       ListTile(
+                    leading: Icon(Icons.monetization_on_outlined,
+                        color: Theme.of(context).colorScheme.secondary),
+                    title: const Text('Donate'),
+                    onTap: () {}),
                 const Divider(),
                 BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
                   bool isDark = state.themeMode == ThemeMode.dark;

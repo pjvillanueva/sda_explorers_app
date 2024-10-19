@@ -10,19 +10,23 @@ class ThemeState {
   Map<String, dynamic> toJson() => {'themeMode': themeMode.name};
 
   ThemeState.fromJson(Map<String, dynamic> json)
-      : themeMode = ThemeMode.values.firstWhere((e) => e.name == json['themeMode']);
+      : themeMode =
+            ThemeMode.values.firstWhere((e) => e.name == json['themeMode']);
 
   @override
   String toString() => 'theme: $themeMode';
 }
 
-class ThemeCubit extends HydratedCubit<ThemeState>  {
+class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(ThemeState(themeMode: ThemeMode.light)) {
     hydrate();
   }
 
-  void setTheme(bool isDark) {
-    emit(ThemeState(themeMode: isDark ? ThemeMode.dark : ThemeMode.light));
+  void toggleTheme() {
+    emit(ThemeState(
+      themeMode:
+          state.themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark,
+    ));
   }
 
   @override
@@ -37,7 +41,8 @@ class ThemeCubit extends HydratedCubit<ThemeState>  {
 }
 
 ThemeMode get initialTheme {
-  var brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
+  var brightness =
+      SchedulerBinding.instance.platformDispatcher.platformBrightness;
   if (brightness == Brightness.dark) {
     return ThemeMode.dark;
   }

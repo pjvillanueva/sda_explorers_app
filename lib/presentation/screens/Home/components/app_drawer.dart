@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
+import 'package:sda_explorers_app/presentation/screens/Bible/bible_screen.dart';
 import 'package:sda_explorers_app/presentation/screens/input_screen.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -47,7 +48,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     leading: Icon(Icons.book_outlined,
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Bible'),
-                    onTap: () {}),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const BibleScreen(),
+                        ))),
                 ListTile(
                     leading: Icon(Icons.church_outlined,
                         color: Theme.of(context).colorScheme.secondary),
@@ -62,24 +65,24 @@ class _AppDrawerState extends State<AppDrawer> {
                         builder: (context) => const InputPage(),
                       ));
                     }),
-                       ListTile(
+                ListTile(
                     leading: Icon(Icons.monetization_on_outlined,
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Donate'),
                     onTap: () {}),
                 const Divider(),
                 BlocBuilder<ThemeCubit, ThemeState>(builder: (context, state) {
-                  bool isDark = state.themeMode == ThemeMode.dark;
                   return ListTile(
                     leading: Icon(
-                        isDark
+                        state.themeMode == ThemeMode.dark
                             ? Icons.wb_sunny_outlined
                             : Icons.dark_mode_outlined,
                         color: Theme.of(context).colorScheme.secondary),
-                    title: Text(isDark ? 'Light Theme' : 'Dark Theme'),
-                    onTap: () {
-                      BlocProvider.of<ThemeCubit>(context).setTheme(!isDark);
-                    },
+                    title: Text(state.themeMode == ThemeMode.dark
+                        ? 'Light Theme'
+                        : 'Dark Theme'),
+                    onTap: () =>
+                        BlocProvider.of<ThemeCubit>(context).toggleTheme(),
                   );
                 }),
                 ListTile(

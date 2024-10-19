@@ -57,13 +57,13 @@ const Map<String, String> Lesson1ContentsMap = {
   'L1B46': L1B46,
   'L1P47': L1P47,
   'L1S49': L1S49,
-  'L1Vi' : 'sabbath_rest.jpg',
+  'L1Vi': 'sabbath_rest.jpg',
   'L1Q50': L1Q50,
   'L1B51': L1B51,
   'L1B52': L1B52,
   'L1P53': L1P53,
   'L1S54': L1S54,
-  'L1Vj' : 'youth.jpg',
+  'L1Vj': 'youth.jpg',
   'L1Q55': L1Q55,
   'L1B56': L1B56,
   'L1Q58': L1Q58,
@@ -181,7 +181,7 @@ const L1P57 =
 const L1Q58 =
     "14. Maaasahan ba ng mga Talubata na mauunawaan ang panukala ng Dios?";
 const L1B59 =
-    "At mula sa pagkasanggol ay iyong nalalaman ang mga banal na kasulatan na makapagpapadunong sa iyo sa ikaliligtas sa pamamagitan ng pananampalataya kay Cristo Jesus. - Timoteo 3:15.";
+    "At mula sa pagkasanggol ay iyong nalalaman ang mga banal na kasulatan na makapagpapadunong sa iyo sa ikaliligtas sa pamamagitan ng pananampalataya kay Cristo Jesus. - 2 Timoteo 3:15.";
 const L1Q60 =
     "15. Yamang ang Dios ang ating Manlalalang, ano ang Kanyang inaasahan sa Kanyang mga anak?";
 const L1B61 =
@@ -190,3 +190,5 @@ const L1P62 =
     "Yamang ang Dios ang ating Manlalalang, inaasahan Niyang Susundin natin at pagtitiwalaan Siyya. Nalalaman Niya kung paano tayo nilalang at kung ano ang idudulot ng hinaharap. Nalalaman Niya ang mabuti para sa atin sa lahat ng panahon at sa ilalim ng lahat ng pangyayari, kaya't mapagtitiwalaan natin ang Kanyang pag-ibig at karunungan.";
 const L1P63 =
     "Tatanggapin ka Niya bilang Kanyang anak at pangangalagaan at ingatan ka kung ikaw ay magpapasiya NGAYON na, sa pamamagitan ng tulong ng Dios, na sundin-Siya sapagkat gaya ng sinasabi ng ating talata, \"Ito ang buong katungkulan ng tao.\"";
+
+

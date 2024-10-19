@@ -39,7 +39,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/logos/
-    - assets/bibles/
+    - assets/bibles/biblia.json
 
 flutter_launcher_icons:
   android: "launcher_icon"

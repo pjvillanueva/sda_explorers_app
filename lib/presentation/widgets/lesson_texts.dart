@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sda_explorers_app/data/lessons/helpers.dart';
+import 'package:sda_explorers_app/utils/bible_verses_address.dart';
 
 abstract class LessonTexts {
   final String text;
@@ -25,7 +26,9 @@ class LessonTitle extends StatelessWidget implements LessonTexts {
       child: Text(
         text,
         style: GoogleFonts.robotoSlab(
-            fontSize: 24, color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+            fontSize: 24,
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -43,15 +46,17 @@ class MemoryVerse extends StatelessWidget implements LessonTexts {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: GoogleFonts.raleway(
-              fontSize: 18, color: Theme.of(context).colorScheme.onSurface, fontStyle: FontStyle.italic),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: GoogleFonts.raleway(
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.onSurface,
+                fontStyle: FontStyle.italic),
+          ),
         ),
-      ),
-    );
+        onDoubleTap: () => navigateToBible(context, code));
   }
 }
 
@@ -71,7 +76,8 @@ class Paragraph extends StatelessWidget implements LessonTexts {
       child: RichText(
         textAlign: TextAlign.start,
         text: TextSpan(
-          style: GoogleFonts.nunito(fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
+          style: GoogleFonts.nunito(
+              fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
           children: [
             if (isFirst && text.isNotEmpty)
               WidgetSpan(
@@ -118,7 +124,9 @@ class Subtitle extends StatelessWidget implements LessonTexts {
         text,
         textAlign: TextAlign.center,
         style: GoogleFonts.lora(
-            color: Theme.of(context).colorScheme.onSurface, fontSize: 20, fontWeight: FontWeight.bold),
+            color: Theme.of(context).colorScheme.onSurface,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -139,7 +147,8 @@ class Question extends StatelessWidget implements LessonTexts {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: GoogleFonts.openSans(color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
+        style: GoogleFonts.openSans(
+            color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
       ),
     );
   }
@@ -157,16 +166,18 @@ class BibleVerse extends StatelessWidget implements LessonTexts {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 40),
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: GoogleFonts.libreBaskerville(
-              color: Theme.of(context).colorScheme.onSurface, fontSize: 17, fontWeight: FontWeight.bold),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 40),
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: GoogleFonts.libreBaskerville(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 17,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-    );
+        onDoubleTap: () => navigateToBible(context, code));
   }
 }
 

@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_1.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_10.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_11.dart';
@@ -23,15 +27,23 @@ import 'package:sda_explorers_app/data/lessons/lesson_6.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_7.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_8.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_9.dart';
+import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
+import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/logic/services/user_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/app_drawer.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/explorers_progress_bar.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/greetings_box.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/todays_verse_card.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final lessons = [
     Lesson1ContentsMap,
     Lesson2ContentsMap,
@@ -58,6 +70,27 @@ class HomeScreen extends StatelessWidget {
     Lesson23ContentsMap,
     Lesson24ContentsMap
   ];
+
+  @override
+  void initState() {
+    verifyUser();
+    super.initState();
+  }
+
+  verifyUser() async {
+    try {
+      await getUser(context);
+      var user = context.read<UserCubit>().state.user;
+      if (user == null) {
+        StorageManager().deleteData('user_id');
+        await FirebaseAuth.instance.signOut();
+      }
+    } catch (e) {
+      print(e);
+      StorageManager().deleteData('user_id');
+      await FirebaseAuth.instance.signOut();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

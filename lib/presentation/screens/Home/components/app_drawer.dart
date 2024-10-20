@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_print
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
+import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
+import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Bible/bible_screen.dart';
+import 'package:sda_explorers_app/presentation/screens/Profile/profile_screen.dart';
 import 'package:sda_explorers_app/presentation/screens/input_screen.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -22,21 +26,27 @@ class _AppDrawerState extends State<AppDrawer> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            SizedBox(
-                height: 250,
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(color: Colors.blue.shade800),
-                  margin: const EdgeInsets.only(bottom: 8.0),
-                  currentAccountPicture:
-                      Image.asset('assets/logos/explorers_logo_nbg.png'),
-                  currentAccountPictureSize: const Size(90.0, 90.0),
-                  accountName: Text('Paul James Villanueva',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary)),
-                  accountEmail: Text('pjvillanueva819@gmail.com',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary)),
-                )),
+            BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return SizedBox(
+                    height: 250,
+                    child: UserAccountsDrawerHeader(
+                      decoration: BoxDecoration(color: Colors.blue.shade800),
+                      margin: const EdgeInsets.only(bottom: 8.0),
+                      currentAccountPicture:
+                          Image.asset('assets/logos/explorers_logo_nbg.png'),
+                      currentAccountPictureSize: const Size(90.0, 90.0),
+                      accountName: Text(state.user?.fullName ?? 'Unknown',
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.onSecondary)),
+                      accountEmail: Text(state.user?.email ?? '',
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.onSecondary)),
+                    ));
+              },
+            ),
             Column(
               children: [
                 ListTile(
@@ -89,12 +99,21 @@ class _AppDrawerState extends State<AppDrawer> {
                     leading: Icon(Icons.person_outline,
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Profile'),
-                    onTap: () {}),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()))),
                 ListTile(
                     leading: Icon(Icons.logout_outlined,
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Logout'),
-                    onTap: () async {}),
+                    onTap: () async {
+                      try {
+                        StorageManager().deleteData('user_id');
+                        context.read<UserCubit>().clearUser();
+                        await FirebaseAuth.instance.signOut();
+                      } catch (e) {
+                        print('Error signing out');
+                      }
+                    }),
               ],
             )
           ],

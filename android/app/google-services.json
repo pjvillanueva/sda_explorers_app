@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "506944482241",
+    "project_id": "sda-explorers-app",
+    "storage_bucket": "sda-explorers-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506944482241:android:79583e2e7e1d47c26d1d40",
+        "android_client_info": {
+          "package_name": "com.example.sda_explorers_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT5XP1HGGnUiDDl9BtJckcRb-IN3zlsEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

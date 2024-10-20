@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:sda_explorers_app/presentation/screens/Bible/bible_screen.dart';
 
@@ -157,6 +159,7 @@ navigateToBible(BuildContext context, String code) {
                   verse: map['verse'] as int)));
     }
   }
+  print(code);
 }
 
 const BibleVerseAddress = {
@@ -179,4 +182,20 @@ const BibleVerseAddress = {
   'L1B56': {'book': BB.Ecclesiastes, 'chapter': 12, 'verse': 11},
   'L1B59': {'book': BB.Timothy2, 'chapter': 3, 'verse': 15},
   'L1B61': {'book': BB.Ecclesiastes, 'chapter': 12, 'verse': 13},
+   'L2M2': {'book': BB.Timothy2, 'chapter': 3, 'verse': 16},
+   'L2B7': {'book': BB.Peter2, 'chapter': 1, 'verse': 20},
+   'L2B11': {'book': BB.John, 'chapter': 5, 'verse': 39},
+   'L2B14': {'book': BB.John, 'chapter': 17, 'verse': 17},
+   'L2B17': {'book': BB.Timothy2, 'chapter': 3, 'verse': 16},
+   'L2B20': {'book': BB.Isaiah, 'chapter': 41, 'verse': 23},
+   'L2B21': {'book': BB.Isaiah, 'chapter': 46, 'verse': 9},
+   'L2B28': {'book': BB.Isaiah, 'chapter': 13, 'verse': 19},
+   'L2B29': {'book': BB.Jeremiah, 'chapter': 51, 'verse': 37},
+   'L2B40': {'book': BB.Isaiah, 'chapter': 45, 'verse': 1},
+   'L2B48': {'book': BB.Amos, 'chapter': 3, 'verse': 7},
+   'L2B51': {'book': BB.Corinthians1, 'chapter': 10, 'verse': 11},
+   'L2B54': {'book': BB.Hebrews, 'chapter': 4, 'verse': 12},
 };
+
+
+//'': {'book': BB., 'chapter': , 'verse': },

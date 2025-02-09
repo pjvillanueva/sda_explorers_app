@@ -1,37 +1,32 @@
 enum QuestionType {
-  singleChoice,
-  multipleChoice,
-  enumaration,
+  choiceSingle,
+  choiceMultiple,
+  fillBlanks,
+  trueOrFalse,
   freeText,
-  trueOrFalse
+  enumerate
 }
 
-abstract class Question {
+class Question {
   Question(
       {required this.id,
       required this.text,
-      required this.answer,
-      required this.questionType,
-      required this.readOnly,
-      required this.isChecked,
-      required this.isCorrect});
+      required this.type,
+      this.answer,
+      this.readOnly = false,
+      this.isChecked = false,
+      this.isCorrect,
+      this.instructionText,
+      this.choices = const [],
+      this.answersNeeded = 1});
   String id;
   String text;
-  dynamic answer;
-  QuestionType questionType;
+  QuestionType type;
+  List<String> choices;
   bool readOnly;
   bool isChecked;
-  bool isCorrect;
-}
-
-class SingleChoiceQuestion extends Question {
-  SingleChoiceQuestion(
-      {required super.id,
-      required super.text,
-      required super.answer,
-      required super.questionType,
-      required super.readOnly,
-      required super.isChecked,
-      required super.isCorrect});
-      
+  dynamic answer;
+  bool? isCorrect;
+  String? instructionText;
+  int answersNeeded;
 }

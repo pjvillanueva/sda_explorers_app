@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.dart';
+import 'package:sda_explorers_app/utils/constants.dart';
 
 class TodaysVerseCard extends StatelessWidget {
   const TodaysVerseCard({super.key});
@@ -8,45 +11,64 @@ class TodaysVerseCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
+        // color: Colors.blue.shade100,
         gradient: LinearGradient(
-            colors: [Colors.blue[400]!, Colors.blue[600]!],
+            colors: [Colors.blue[100]!, Colors.blue[600]!],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight),
-        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), topRight: Radius.circular(30) ),
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Today\'s Verse',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(height: 10),
+          Text('Today\'s verse',
+              style: GoogleFonts.roboto(
+                fontSize: 16,
+                color: Colors.grey.shade600,
+              )),
+          const SizedBox(height: 10),
           Text(
             'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+            style: GoogleFonts.roboto(
+              fontSize: 24,
+              color: darkTextColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'John 3:16',
-                style: TextStyle(
-                  
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                    color: Colors.white),
+                child: Row(children: [
+                  const GoldCoin(size: 25),
+                  const SizedBox(width: 5),
+                  Text('120',
+                      style:
+                          GoogleFonts.roboto(fontSize: 18, color: Colors.black))
+                ]),
               ),
-              SizedBox(width: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.auto_stories_outlined,
+                      color: darkTextColor, size: 30),
+                  const SizedBox(width: 10),
+                  Text(
+                    'John 3:16',
+                    style: GoogleFonts.roboto(
+                      fontSize: 17,
+                      color: darkTextColor,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ],

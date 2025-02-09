@@ -32,15 +32,21 @@ class LessonScreen extends StatelessWidget {
                       final key = lessonContents.keys.elementAt(index);
                       final value = lessonContents[key] ?? '';
                       bool isFirstParagraph = index == firstParagraphIndex;
-                      return getTextContainer(key, value, isFirstParagraph);
+                      return getTextContainer(key, value, isFirstParagraph, lessonNumber);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(height: 10.0)))));
   }
 }
 
-Widget? getTextContainer(String key, String value, bool isFirst) {
-  var textType = key[2];
+Widget? getTextContainer(
+    String key, String value, bool isFirst, int lessonNumber) {
+  RegExp regex = RegExp(r'L\d+(.)');
+  Match? match = regex.firstMatch(key);
+  
+  if (match == null || match.groupCount < 1) return null;
+  
+  String textType = match.group(1)!;
 
   switch (textType) {
     case 'T':
@@ -58,7 +64,7 @@ Widget? getTextContainer(String key, String value, bool isFirst) {
     case 'I':
       return Index(value, key);
     case 'N':
-      return const NavigateToTest(testNumber: 1, testContents: {});
+      return NavigateToTest(testNumber: lessonNumber);
     case 'V':
       return ImageContainer(value);
   }

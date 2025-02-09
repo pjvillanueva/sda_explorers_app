@@ -1,40 +1,53 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_1.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_10.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_11.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_12.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_13.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_14.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_15.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_16.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_17.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_18.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_19.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_2.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_20.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_21.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_22.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_23.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_24.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_3.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_4.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_5.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_6.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_7.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_8.dart';
-import 'package:sda_explorers_app/data/lessons/lesson_9.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/logic/services/user_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/app_drawer.dart';
-import 'package:sda_explorers_app/presentation/screens/Home/components/explorers_progress_bar.dart';
-import 'package:sda_explorers_app/presentation/screens/Home/components/greetings_box.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/lesson_carousel.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/todays_verse_card.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
+import 'package:sda_explorers_app/utils/constants.dart';
+
+// Additional Screens as placeholders
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("Profile Screen"));
+  }
+}
+
+class MessagesScreen extends StatelessWidget {
+  const MessagesScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("Messages Screen"));
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("Settings Screen"));
+  }
+}
+
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text("Notifications Screen"));
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,32 +57,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final lessons = [
-    Lesson1ContentsMap,
-    Lesson2ContentsMap,
-    Lesson3ContentsMap,
-    Lesson4ContentsMap,
-    Lesson5ContentsMap,
-    Lesson6ContentsMap,
-    Lesson7ContentsMap,
-    Lesson8ContentsMap,
-    Lesson9ContentsMap,
-    Lesson10ContentsMap,
-    Lesson11ContentsMap,
-    Lesson12ContentsMap,
-    Lesson13ContentsMap,
-    Lesson14ContentsMap,
-    Lesson15ContentsMap,
-    Lesson16ContentsMap,
-    Lesson17ContentsMap,
-    Lesson18ContentsMap,
-    Lesson19ContentsMap,
-    Lesson20ContentsMap,
-    Lesson21ContentsMap,
-    Lesson22ContentsMap,
-    Lesson23ContentsMap,
-    Lesson24ContentsMap
-  ];
+  int _selectedIndex = 0;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -92,73 +81,104 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+    final List<Widget> pages = [
+      HomeContent(scaffoldKey: scaffoldKey),
+      const ProfileScreen(),
+      const MessagesScreen(),
+      const SettingsScreen(),
+      const NotificationsScreen(),
+    ];
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Theme.of(context).colorScheme.primary,
       endDrawer: const AppDrawer(),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: Image.asset('assets/logos/explorers_logo12_nbg.png'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu,
-                color: Theme.of(context).colorScheme.onSurface),
-            onPressed: () {
-              if (scaffoldKey.currentState?.isDrawerOpen == false) {
-                scaffoldKey.currentState?.openEndDrawer();
-              } else {
-                scaffoldKey.currentState?.closeEndDrawer();
-              }
-            },
+      body: SafeArea(child: pages[_selectedIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Leaderboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'About Us',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
           ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const GreetingsBox(),
-              const ExplorerProgressBar(),
-              const SizedBox(height: 10),
-              const TodaysVerseCard(),
-              const SizedBox(height: 10),
-              const Divider(),
-              const SizedBox(height: 30),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Lessons',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: lessons.length,
-                        itemBuilder: (context, index) {
-                          return LessonListTile(
-                              index: index, content: lessons[index]);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+    );
+  }
+}
+
+// Separate widget for the main home content
+class HomeContent extends StatelessWidget {
+  const HomeContent({super.key, required this.scaffoldKey});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HomeBar(scaffoldKey: scaffoldKey),
+          const SizedBox(height: 20),
+          const TodaysVerseCard(),
+          const SizedBox(height: 20),
+          Text(
+            'Lessons',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
-        ),
+          const SizedBox(height: 15),
+          ListView.builder(
+            // Add a height constraint using SizedBox
+            shrinkWrap: true, // Makes the ListView fit its content
+            physics:
+                const NeverScrollableScrollPhysics(), // Prevents nested scrolling
+            itemCount: lessons.length,
+            itemBuilder: (context, index) {
+              return LessonListTile(
+                index: index,
+                content: lessons[index],
+              );
+            },
+          ),
+          // LessonCarousel(),
+        ],
       ),
     );
   }

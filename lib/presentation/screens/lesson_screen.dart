@@ -14,8 +14,10 @@ class LessonScreen extends StatelessWidget {
     ScrollController scrollController = ScrollController();
 
     // Determine the index of the first "P" type
-    int firstParagraphIndex =
-        lessonContents.keys.toList().indexWhere((key) => key[2] == 'P');
+    int firstParagraphIndex = lessonContents.keys.toList().indexWhere((key) {
+      RegExp regex = RegExp(r'L\d{1,2}P');
+      return regex.hasMatch(key);
+    });
 
     return Scaffold(
         appBar: AppBar(
@@ -32,7 +34,8 @@ class LessonScreen extends StatelessWidget {
                       final key = lessonContents.keys.elementAt(index);
                       final value = lessonContents[key] ?? '';
                       bool isFirstParagraph = index == firstParagraphIndex;
-                      return getTextContainer(key, value, isFirstParagraph, lessonNumber);
+                      return getTextContainer(
+                          key, value, isFirstParagraph, lessonNumber);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox(height: 10.0)))));
@@ -43,9 +46,9 @@ Widget? getTextContainer(
     String key, String value, bool isFirst, int lessonNumber) {
   RegExp regex = RegExp(r'L\d+(.)');
   Match? match = regex.firstMatch(key);
-  
+
   if (match == null || match.groupCount < 1) return null;
-  
+
   String textType = match.group(1)!;
 
   switch (textType) {

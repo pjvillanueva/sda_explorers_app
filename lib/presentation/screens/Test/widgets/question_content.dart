@@ -106,26 +106,43 @@ class _EnumerateQuestionContentState extends State<EnumerateQuestionContent> {
   @override
   void initState() {
     super.initState();
+    _initializeControllers();
+  }
 
+  void _initializeControllers() {
     List<String> answers =
         context.read<TestCubit>().loadAnswer(widget.question.id) ?? [];
 
-    if (answers.isNotEmpty) {
-      List.generate(
-          answers.length,
-          (index) =>
-              controllers.add(TextEditingController(text: answers[index])));
-    } else {
-      List.generate(widget.question.answersNeeded,
-          (index) => controllers.add(TextEditingController()));
+    controllers = List.generate(
+      widget.question.answersNeeded,
+      (index) => TextEditingController(
+        text:
+            answers.isNotEmpty && index < answers.length ? answers[index] : "",
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant EnumerateQuestionContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.question.id != widget.question.id) {
+      _disposeControllers();
+      _initializeControllers();
+      setState(() {});
     }
+  }
+
+  void _disposeControllers() {
+    for (var c in controllers) {
+      c.dispose();
+    }
+    controllers.clear();
   }
 
   @override
   void dispose() {
-    for (var c in controllers) {
-      c.dispose();
-    }
+    _disposeControllers();
     super.dispose();
   }
 
@@ -178,21 +195,50 @@ class FillInBlanksQuestionContent extends StatefulWidget {
 class _FillInBlanksQuestionContentState
     extends State<FillInBlanksQuestionContent> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Map<String, TextEditingController> controllers = {};
+  final Map<String, TextEditingController> controllersMap = {};
+
+  @override
+  void didUpdateWidget(covariant FillInBlanksQuestionContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.question.id != widget.question.id) {
+      _disposeControllers();
+      setState(() {});
+    }
+  }
+
+  void _disposeControllers() {
+    for (var controller in controllersMap.values) {
+      controller.dispose();
+    }
+    controllersMap.clear();
+  }
 
   @override
   void dispose() {
-    for (var c in controllers.values) {
-      c.dispose();
-    }
+    _disposeControllers();
     super.dispose();
+  }
+
+  void _submit() {
+    if (_formKey.currentState?.validate() ?? false) {
+      List<String> values =
+          controllersMap.values.map((controller) => controller.text).toList();
+
+      context.read<TestCubit>().submit(widget.question.id, values);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> answers =
-        context.read<TestCubit>().loadAnswer(widget.question.id) ?? [];
-    List<InlineSpan> spans = _processString(widget.question.text, answers);
+    final List<String> answers = (context
+                .read<TestCubit>()
+                .loadAnswer(widget.question.id) as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
+    final spans = _processString(widget.question.text, answers);
 
     return Column(
       children: [
@@ -203,10 +249,7 @@ class _FillInBlanksQuestionContentState
               Text(
                 widget.question.instructionText!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontSize: 20),
               ),
               const SizedBox(height: 16),
             ],
@@ -226,21 +269,7 @@ class _FillInBlanksQuestionContentState
           ),
         ),
         const SizedBox(height: 16),
-        QuestionActions(
-          back: () {
-            context.read<TestCubit>().back();
-            controllers.clear();
-          },
-          submit: () {
-            if (_formKey.currentState?.validate() ?? false) {
-              List<String> values = controllers.values.map((controller) {
-                return controller.text;
-              }).toList();
-
-              context.read<TestCubit>().submit(widget.question.id, values);
-            }
-          },
-        ),
+        QuestionActions(submit: _submit),
       ],
     );
   }
@@ -269,7 +298,7 @@ class _FillInBlanksQuestionContentState
 
       final controller = TextEditingController(
           text: answers.isEmpty ? '' : answers[blankCounter - 1]);
-      controllers[uniqueKey] = controller;
+      controllersMap[uniqueKey] = controller;
 
       spans.add(WidgetSpan(
         alignment: PlaceholderAlignment.middle,
@@ -326,13 +355,28 @@ class _SingleChoiceQuestionContentState
   @override
   void initState() {
     super.initState();
+    _loadAnswer();
+  }
 
+  @override
+  void didUpdateWidget(covariant SingleChoiceQuestionContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.question.id != widget.question.id) {
+      _loadAnswer();
+    }
+  }
+
+  void _loadAnswer() {
     String? answer = context.read<TestCubit>().loadAnswer(widget.question.id);
-    print('LOADED ANSWER');
-    if (answer != null) {
-      if (widget.question.choices.contains(answer)) {
+    print('LOADED ANSWER: $answer');
+    if (answer != null && widget.question.choices.contains(answer)) {
+      setState(() {
         selectedChoiceIndex = widget.question.choices.indexOf(answer);
-      }
+      });
+    } else {
+      setState(() {
+        selectedChoiceIndex = null;
+      });
     }
   }
 
@@ -399,9 +443,6 @@ class _SingleChoiceQuestionContentState
           if (selectedChoiceIndex != null) {
             context.read<TestCubit>().submit(widget.question.id,
                 widget.question.choices[selectedChoiceIndex!]);
-            if (!context.read<TestCubit>().state.isLastQuestion) {
-              selectedChoiceIndex = null;
-            }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -433,15 +474,33 @@ class _MultipleChoiceQuestionContentState
   @override
   void initState() {
     super.initState();
-    List<String>? answers =
-        context.read<TestCubit>().loadAnswer(widget.question.id);
+    _loadSelectedChoices();
+  }
+
+  @override
+  void didUpdateWidget(covariant MultipleChoiceQuestionContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.question.id != widget.question.id) {
+      setState(() {
+        selectedChoices.clear();
+      });
+      _loadSelectedChoices();
+    }
+  }
+
+  void _loadSelectedChoices() {
+    final answers = context.read<TestCubit>().loadAnswer(widget.question.id)
+        as List<String>?;
+
     if (answers != null) {
-      for (var answer in answers) {
-        final index = widget.question.choices.indexOf(answer);
-        if (index != -1) {
-          selectedChoices.add(index);
+      setState(() {
+        for (var answer in answers) {
+          final index = widget.question.choices.indexOf(answer);
+          if (index != -1) {
+            selectedChoices.add(index);
+          }
         }
-      }
+      });
     }
   }
 
@@ -546,11 +605,26 @@ class _TrueFalseQuestionContentState extends State<TrueFalseQuestionContent> {
   @override
   void initState() {
     super.initState();
+    _loadSelectedAnswer();
+  }
 
-    // Load saved answer if available
+  @override
+  void didUpdateWidget(covariant TrueFalseQuestionContent oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.question.id != widget.question.id) {
+      setState(() {
+        selectedAnswer = null;
+      });
+      _loadSelectedAnswer();
+    }
+  }
+
+  void _loadSelectedAnswer() {
     String? answer = context.read<TestCubit>().loadAnswer(widget.question.id);
     if (answer != null) {
-      selectedAnswer = answer == 'Tama';
+      setState(() {
+        selectedAnswer = answer == 'Tama';
+      });
     }
   }
 
@@ -643,3 +717,4 @@ class _TrueFalseQuestionContentState extends State<TrueFalseQuestionContent> {
     );
   }
 }
+

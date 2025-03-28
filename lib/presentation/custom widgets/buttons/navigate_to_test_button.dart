@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:sda_explorers_app/data/models/question.dart';
+import 'package:sda_explorers_app/data/tests/dummy_test_creator.dart';
 import 'package:sda_explorers_app/data/tests/test_1.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/test_screen.dart';
 
@@ -16,9 +20,9 @@ class NavigateToTest extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => TestScreen(
-                      title: 'Lesson $testNumber Test',
-                      questions: test1Questions,
-                    )));
+                        title: 'Lesson $testNumber Test',
+                        // questions: test1Questions,
+                        questions: generateRandomQuestions(10))));
       },
       child: const Text(
         'ANSWER LESSON TEST',
@@ -28,10 +32,6 @@ class NavigateToTest extends StatelessWidget {
   }
 }
 
-//TODO: Solve bugs
-//Choices type select the same answer
-//Something went wrong in the last two fill blanks question
-
 _getQuestions(int testNumber) {
   switch (testNumber) {
     case 1:
@@ -39,4 +39,21 @@ _getQuestions(int testNumber) {
     default:
       return test1Questions;
   }
+}
+
+List<Question> generateRandomQuestions(int count) {
+  final random = Random();
+  final questionGenerators = [
+    freeTextQ,
+    enumerateQ,
+    fillBlanksQ,
+    choiceSingleQ,
+    choiceMultiple,
+    trueOrFalseQ
+  ];
+
+  return List.generate(count, (_) {
+    final generator = questionGenerators[random.nextInt(questionGenerators.length)];
+    return generator();
+  });
 }

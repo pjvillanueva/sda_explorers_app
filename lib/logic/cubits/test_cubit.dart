@@ -46,7 +46,6 @@ class TestCubit extends Cubit<TestState> {
     if (state.currentQuestion > 0) {
       emit(state.copyWith(currentQuestion: state.currentQuestion - 1));
     }
-    print('BACK CLICKED');
   }
 
   void submit(String questionId, dynamic answer) {

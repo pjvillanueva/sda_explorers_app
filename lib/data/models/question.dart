@@ -4,7 +4,8 @@ enum QuestionType {
   fillBlanks,
   trueOrFalse,
   freeText,
-  enumerate
+  enumerate,
+  falseMultiple,
 }
 
 class Question {

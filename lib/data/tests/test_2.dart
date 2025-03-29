@@ -9,7 +9,7 @@ List<Question> test2Questions = [
   Question(
     id: 'T2Q2',
     text:
-        'Sang-ayon sa 2 Pedro 1:21, ang Banal na Kasulatan ay isinulat ng #longblank sa pamamagitan ng #shortblank (Par. 1).',
+        'Sang-ayon sa 2 Pedro 1:21, ang Banal na Kasulatan ay isinulat ng #shortblank sa pamamagitan ng #longblank (Par. 1).',
     type: QuestionType.fillBlanks,
   ),
   Question(
@@ -21,7 +21,7 @@ List<Question> test2Questions = [
       'Isinulat nila ang kanilang mga pangitain sapagkat sila\'y hinihilingan ng Dios na gawain yaon.',
       'Ang mga manunulat sa Bagong Tipan ay hindi kailan man sumipi mula sa Lumang Tipan'
     ],
-    type: QuestionType.choiceMultiple,
+    type: QuestionType.falseMultiple,
   ),
   Question(
     id: 'T2Q4',

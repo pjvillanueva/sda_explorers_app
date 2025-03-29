@@ -20,6 +20,8 @@ getQuestionContent(Question question) {
       return MultipleChoiceQuestionContent(question: question);
     case QuestionType.trueOrFalse:
       return TrueFalseQuestionContent(question: question);
+    case QuestionType.falseMultiple:
+      return MultipleChoiceQuestionContent(question: question, selectedColor: Colors.red);
     default:
       return Container();
   }
@@ -368,7 +370,6 @@ class _SingleChoiceQuestionContentState
 
   void _loadAnswer() {
     String? answer = context.read<TestCubit>().loadAnswer(widget.question.id);
-    print('LOADED ANSWER: $answer');
     if (answer != null && widget.question.choices.contains(answer)) {
       setState(() {
         selectedChoiceIndex = widget.question.choices.indexOf(answer);
@@ -406,9 +407,9 @@ class _SingleChoiceQuestionContentState
               });
             },
             child: Container(
-              height: 50,
               width: 300,
               margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color:
                     isSelected ? Colors.green.shade900 : Colors.green.shade300,
@@ -424,13 +425,16 @@ class _SingleChoiceQuestionContentState
                         fontWeight: FontWeight.bold,
                         color: isSelected ? Colors.white : Colors.black),
                   ),
+                  const SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
                       choice,
                       style: TextStyle(
                           fontSize: 16,
                           color: isSelected ? Colors.white : Colors.black),
-                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
                     ),
                   ),
                 ],
@@ -457,10 +461,12 @@ class _SingleChoiceQuestionContentState
   }
 }
 
+// ignore: must_be_immutable
 class MultipleChoiceQuestionContent extends StatefulWidget {
-  const MultipleChoiceQuestionContent({super.key, required this.question});
+   MultipleChoiceQuestionContent({super.key, required this.question, this.selectedColor});
 
   final Question question;
+  Color? selectedColor;
 
   @override
   State<MultipleChoiceQuestionContent> createState() =>
@@ -534,12 +540,12 @@ class _MultipleChoiceQuestionContentState
               });
             },
             child: Container(
-              height: 50,
               width: 300,
               margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color:
-                    isSelected ? Colors.green.shade900 : Colors.green.shade300,
+                    isSelected ? (widget.selectedColor ?? Colors.green.shade900) : Colors.green.shade300,
                 borderRadius: const BorderRadius.all(Radius.circular(30.0)),
               ),
               child: Row(
@@ -548,17 +554,22 @@ class _MultipleChoiceQuestionContentState
                   Text(
                     '$choiceLetter. ',
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: isSelected ? Colors.white : Colors.black),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: isSelected ? Colors.white : Colors.black,
+                    ),
                   ),
+                  const SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
                       choice,
                       style: TextStyle(
-                          fontSize: 16,
-                          color: isSelected ? Colors.white : Colors.black),
-                      overflow: TextOverflow.ellipsis,
+                        fontSize: 16,
+                        color: isSelected ? Colors.white : Colors.black,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
                     ),
                   ),
                 ],
@@ -717,4 +728,3 @@ class _TrueFalseQuestionContentState extends State<TrueFalseQuestionContent> {
     );
   }
 }
-

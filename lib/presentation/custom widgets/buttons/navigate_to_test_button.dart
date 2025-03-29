@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sda_explorers_app/data/models/question.dart';
 import 'package:sda_explorers_app/data/tests/dummy_test_creator.dart';
 import 'package:sda_explorers_app/data/tests/test_1.dart';
+import 'package:sda_explorers_app/data/tests/test_2.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/test_screen.dart';
 
 class NavigateToTest extends StatelessWidget {
@@ -21,8 +22,10 @@ class NavigateToTest extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => TestScreen(
                         title: 'Lesson $testNumber Test',
+                        questions: _getQuestions(testNumber),
                         // questions: test1Questions,
-                        questions: generateRandomQuestions(10))));
+                        // questions: generateRandomQuestions(10)
+                        )));
       },
       child: const Text(
         'ANSWER LESSON TEST',
@@ -36,6 +39,8 @@ _getQuestions(int testNumber) {
   switch (testNumber) {
     case 1:
       return test1Questions;
+    case 2:
+      return test2Questions;
     default:
       return test1Questions;
   }

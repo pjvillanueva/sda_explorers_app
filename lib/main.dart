@@ -83,14 +83,16 @@ class AuthWrapper extends StatelessWidget {
 //Ui theme reference: https://dribbble.com/shots/22868289-KwikQuiz-App-UI-Gamification
 
 
-//BACKLOGS
-//Finish putting text the explorers contents = 8/24
-//Finish putting text the explorers questionaire = 1/24
-//Make the verse for the day work
-//Pointing system9
-//Guide system
+//MVP REQUIREMENTS
+//English translations
+//Dark/Light Mode
+//Formatting question text
+//Submit Test
+//Check Test
+//Verse for the day
 //Donate page
 //Add ads
-//User Roles
-//User Profile
-//User Pages for Admin
+//Apply as teacher
+//Register/assign student
+//Find Teacher 
+//Images

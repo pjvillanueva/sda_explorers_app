@@ -13,39 +13,12 @@ import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 import 'package:sda_explorers_app/utils/constants.dart';
 
 // Additional Screens as placeholders
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text("Profile Screen"));
-  }
-}
-
-class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text("Messages Screen"));
-  }
-}
-
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(child: Text("Settings Screen"));
-  }
-}
-
-class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text("Notifications Screen"));
   }
 }
 
@@ -91,10 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomeContent(scaffoldKey: scaffoldKey),
-      const ProfileScreen(),
-      const MessagesScreen(),
       const SettingsScreen(),
-      const NotificationsScreen(),
     ];
 
     SystemChrome.setSystemUIOverlayStyle(
@@ -115,24 +85,24 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Explore',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Leaderboard',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.message),
+          //   label: 'Leaderboard',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.settings),
+          //   label: 'About Us',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'About Us',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
             label: 'Account',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.person),
+          //   label: 'Account',
+          // ),
         ],
       ),
     );

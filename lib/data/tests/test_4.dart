@@ -5,126 +5,80 @@ import 'package:sda_explorers_app/data/models/question.dart';
 List<Question> test4Questions = [
   Question(
     id: 'T4Q1',
-    text: 'Natutunan na ba ninyo ang talatang-sauluhin sa araling ito?',
+    text: 'Natutunan na ba ninyo ang talatang-sauluhin?',
     type: QuestionType.trueOrFalse,
   ),
   Question(
     id: 'T4Q2',
-    text: 'Sang-ayon sa 2 Pedro 1:21, ang Banal na Kasulatan ay isinulat ng #shortblank sa pamamagitan ng #shortblank',
-    type: QuestionType.freeText,
+    text: 'Sang-ayon sa ating saulihin, kung ibig ng tao na maligtas, dapat siyang manampalataya sa #shortblank na anak ng #shortblank .',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q3',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Ang unang lalaki at unang babae ay pinangalanang #shortblank at #shortblank , at ang kanilang unang tahanan ay tinatawag na Halamanan ng #shortblank . (Par. 3, 4)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q4',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Lagyan ng guhit na krus ang maling pangungusap sa sumusunod:',
+    type: QuestionType.falseMultiple,
+    choices: [
+      'Sa simula ay tunay na maligaya si Adan at Eba sa kanilang tahanan.',
+      'Naghari ang Dios kay Adan at Eba ngunit ang mga hayop ay dapat sumusunod sa tao.',
+      'Ginawa si Eba mula sa isang tadyang ni Adan.',
+      'Si Adan ay ginawa mula sa kahoy.',
+    ],
   ),
   Question(
     id: 'T4Q5',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Pinagbawalan si Adan at Eba na kumain ng bunga ng punong kahoy ng #shortblank ng #shortblank at #shortblank . (Par. 5)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q6',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Si Eba ay nadaya ng #shortblank na nagsalita sa kanya. Yao\'y tunay na si #shortblank na nagsalita sa pamamagitan ng #shortblank . (Par. 6, 7)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q7',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Sinabi ng ahas kay Eba na siya\'y hindi #shortblank kung kakainin niya ang pinagbabawal na bunga, at siya ay magiging tulad ng #shortblank kung kakainin ito. (Par. 6)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q8',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Lagyan ng bilog na guhit ang wastong tugon: Matapos magkasala ni Adan at Eba, sinabi ng Dios na Kanyang:',
+    type: QuestionType.falseMultiple,
+    choices: [
+      'Lililpulin sila karakaraka.',
+      'Magpapadala ng isang Tagapagligtas.',
+      'Lilipuling karakaraka si Satanas.',
+    ],
   ),
   Question(
     id: 'T4Q9',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Sinabi ng anghel ang tungkol sa Tagapagligtas, "At ang pangalang itatawag mo sa Kanya ay #shortblank sapagkat #shortblank niya sila mula sa kanilang mga #shortblank (Par. 9)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T4Q10',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Ang pangalan "Jesus" ay nangangahulugang #shortblank ang pangalan ng kanyang ina ay #shortblank, at ang Kanyang Amang sumasalangit ay #shortblank (Par. 9)',
+    type: QuestionType.fillBlanks,
+  ),
+  Question(
+    id: 'T4Q11',
+    text: 'Bumanggit ng tatlong mga malulupit na bagay na ginawa nila kay Jesus sa katapusan ng Kanyang paglilingkod;',
+    answersNeeded: 3,
+    type: QuestionType.enumerate,
+  ),
+  Question(
+    id: 'T4Q12',
+    text: 'Tandaan ang maling pangungusap sa sumusunod:',
+    type: QuestionType.falseMultiple,
+    choices: [
+      'Si Jesus ay nasa Kanyang libingan pa.',
+      'Si Jesus ay nasa Langit na ngayon.',
+      'Nasasabik si Jesus na patawarin ang inyong mga kasalanan.',
+      'Muling paririto si Jesus upang dalhin sa langit ang Kanyang tagasunod.',
+    ],
   ),
 ];
-
-/*
-1.
-Natutunan na ba ninyo ang talatang sauluhin?
-2.
-Sang-ayon sa ating sauluhin, kung ibig ng tao na maligtas, dapat siyang manampalataya sa
-anak ng
-3.
-Ang unang lalaki at unang babae ay pinangalanang
-tahanan ay tinatawag na Halamanan ng.
-4.
-a.
-na
-at
-at ang kanilang unang
-(Par. 3, 4)
-Lagyan ng guhit na krus ang maling pangungusap sa sumusunod:
-Sa simula ay tunay na maligaya si Adan at Eba sa kanilang tahanan.
-b.
-C.
-Naghari ang Dios kay Adan at Eba ngunit ang mga hayop ay dapat sumusunod sa tao.
-Ginawa si Eba mula sa isang sa mga tadyang ni Adan.
-Si Adan ay ginawa mula sa kahoy.
-Pinagbawalan si Adan at Eba na kumain ng bunga ng punong kahoy ng
-d.
-5.
-ng
-at
-(Par. 5)
-6.
-Si Eba ay nadaya ng.
-sa pamamagitan ng
-na nagsalita sa kanya. Yao'y tunay na si
-(Par. 6, 7)
-na nagsalita
-7.
-Sinabi ng ahas kay Eba na siya'y hindi
-siya ay magiging tulad ng.
-kung kakainin niya ang pinagbabawal na bunga, at
-kung kakainin ito. (Par. 6)
-8.
-Lagyan ng bilog na guhit ang wastong tugon: Matapos magkasala ni Adan at Eba, sinabi ng Dios na kanyang:
-(a) Lilipulin sila karakaraka.
-9.
-Sinabi ng anghel ang tungkol sa Tagapagligtas, "At ang pangalang itatawag mo sa Kanya ay
-sapagkat
-(b)
-(c)
-Magpapadala ng isang Tagapagligtas.
-Lilipuling karakaraka si Satanas.
-niya sila mula sa kanilang mga
-, at ang Kanyang Amang sumasalangit ay
-Ang pangalang "Jesus" ay nangangahulugang
-10.
-ay_
-11.
-12.
-(Par. 9)
-ang pangalan ng kanyang ina
-(Par. 9)
-Bumanggit ng tatlong mga malulupit na bagay na ginawa nila kay Jesus sa katapusan ng Kanyang paglilingkod
-Tandaan ang maling pangungusap sa sumusunod:
-Si Jesus ay nasa Kanyang libingan pa.
-a.
-b.
-ADCR
-C.
-d.
-Si Jesus ay nasa Langit na ngayon.
-Nasasabik si Jesus na patawarin ang inyong mga
-kasalanan.
-Muling paririto si Jesus upang dalhin sa langit ang Kanyang tagasunod.
-(Par. 11)
- */

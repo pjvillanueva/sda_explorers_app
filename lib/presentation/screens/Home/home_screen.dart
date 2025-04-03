@@ -7,20 +7,11 @@ import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/logic/services/user_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/app_drawer.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.dart';
-import 'package:sda_explorers_app/presentation/screens/Home/components/lesson_carousel.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/todays_verse_card.dart';
+import 'package:sda_explorers_app/presentation/screens/Account/account_screen.dart';
+import 'package:sda_explorers_app/presentation/screens/Tools/tools_screen.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 import 'package:sda_explorers_app/utils/constants.dart';
-
-// Additional Screens as placeholders
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text("Settings Screen"));
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
@@ -63,8 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
+      const ToolsScreen(),
       HomeContent(scaffoldKey: scaffoldKey),
-      const SettingsScreen(),
+      const AccountScreen(),
     ];
 
     SystemChrome.setSystemUIOverlayStyle(
@@ -79,37 +71,30 @@ class _HomeScreenState extends State<HomeScreen> {
       endDrawer: const AppDrawer(),
       body: SafeArea(child: pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.handyman_outlined),
+            label: 'Tools',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_outlined),
             label: 'Explore',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.message),
-          //   label: 'Leaderboard',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.settings),
-          //   label: 'About Us',
-          // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.account_box_outlined),
             label: 'Account',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person),
-          //   label: 'Account',
-          // ),
         ],
       ),
     );
   }
 }
 
-// Separate widget for the main home content
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key, required this.scaffoldKey});
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -135,10 +120,8 @@ class HomeContent extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           ListView.builder(
-            // Add a height constraint using SizedBox
-            shrinkWrap: true, // Makes the ListView fit its content
-            physics:
-                const NeverScrollableScrollPhysics(), // Prevents nested scrolling
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: lessons.length,
             itemBuilder: (context, index) {
               return LessonListTile(
@@ -147,7 +130,6 @@ class HomeContent extends StatelessWidget {
               );
             },
           ),
-          // LessonCarousel(),
         ],
       ),
     );

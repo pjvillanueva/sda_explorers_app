@@ -6,7 +6,7 @@ import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Bible/bible_screen.dart';
-import 'package:sda_explorers_app/presentation/screens/Profile/profile_screen.dart';
+import 'package:sda_explorers_app/presentation/screens/Account/account_screen.dart';
 import 'package:sda_explorers_app/presentation/screens/input_screen.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -100,7 +100,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         color: Theme.of(context).colorScheme.secondary),
                     title: const Text('Profile'),
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()))),
+                        builder: (context) => const AccountScreen()))),
                 ListTile(
                     leading: Icon(Icons.logout_outlined,
                         color: Theme.of(context).colorScheme.secondary),

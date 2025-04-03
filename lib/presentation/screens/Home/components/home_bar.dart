@@ -50,28 +50,28 @@ class HomeBar extends StatelessWidget {
             ),
           ],
         ),
-        GestureDetector(
-          child: Container(
-            padding: const EdgeInsets.all(10.0),
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                color: Colors.blue),
-            child: Row(children: [
-              const GoldCoin(size: 30),
-              const SizedBox(width: 5),
-              Text('12000',
-                  style: GoogleFonts.roboto(fontSize: 18, color: Colors.white))
-            ]),
-          ),
-          onTap: () {
-            print('Tapped: ${scaffoldKey.currentState}');
-            if (scaffoldKey.currentState?.isDrawerOpen == false) {
-              scaffoldKey.currentState?.openEndDrawer();
-            } else {
-              scaffoldKey.currentState?.closeEndDrawer();
-            }
-          },
-        )
+        // GestureDetector(
+        //   child: Container(
+        //     padding: const EdgeInsets.all(10.0),
+        //     decoration: const BoxDecoration(
+        //         borderRadius: BorderRadius.all(Radius.circular(40.0)),
+        //         color: Colors.blue),
+        //     child: Row(children: [
+        //       const GoldCoin(size: 30),
+        //       const SizedBox(width: 5),
+        //       Text('12000',
+        //           style: GoogleFonts.roboto(fontSize: 18, color: Colors.white))
+        //     ]),
+        //   ),
+        //   onTap: () {
+        //     print('Tapped: ${scaffoldKey.currentState}');
+        //     if (scaffoldKey.currentState?.isDrawerOpen == false) {
+        //       scaffoldKey.currentState?.openEndDrawer();
+        //     } else {
+        //       scaffoldKey.currentState?.closeEndDrawer();
+        //     }
+        //   },
+        // )
       ],
     );
   }

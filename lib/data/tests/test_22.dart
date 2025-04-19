@@ -3,53 +3,57 @@ import 'package:sda_explorers_app/data/models/question.dart';
 List<Question> test22Questions = [
   Question(
     id: 'T22Q1',
-    text: 'Natutunan na ba ninyo ang talatang-sauluhin sa araling ito?',
+    text: 'Napag-aralan na ba ninyo ang talatang sauluhin? Sagutin ng 00 o HINDI',
     type: QuestionType.trueOrFalse,
   ),
   Question(
     id: 'T22Q2',
-    text: 'Sang-ayon sa 2 Pedro 1:21, ang Banal na Kasulatan ay isinulat ng #shortblank sa pamamagitan ng #shortblank',
-    type: QuestionType.freeText,
+    text:
+        'Habang tayo\'y napapalapit sa katapusan, ang tao\'y magiging #shortblank sa itinuturo ng Bibliya na malapit na ang pagdating ni Jesus. At sasabihin ng iba," #shortblank ang aking Panginoon." (Par. 1)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T22Q3',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Sinasabi ng Daniel 12:4 tungkol sa panahon ng katapusan na "Marami ang #shortblank nang paroo\'t #shortblank at ang #shortblank ay #shortblank" (Par. 2) ',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T22Q4',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Isulat ninyo ang walong makabagong imbensyon at pamamaraan ng mabilis ng paglalakbay',
+    type: QuestionType.enumerate,
+    answersNeeded: 8
   ),
   Question(
     id: 'T22Q5',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Ang araw at buwan ay #shortblank bago dumating ang katapusan. Ito\'y naganap nang taong #shortblank (Par. 2)',
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T22Q6',
-    text: '',
-    type: QuestionType.freeText,
+    text: 'Ang mga bituin ay #shortblank bago dumating ang katapusan. ',
+    type: QuestionType.fillBlanks,
   ),
   Question(
-    id: 'T22Q7',
-    text: '',
-    type: QuestionType.freeText,
-  ),
+      id: 'T22Q7', text: '', type: QuestionType.enumerate, answersNeeded: 4),
   Question(
     id: 'T22Q8',
     text: '',
-    type: QuestionType.freeText,
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T22Q9',
     text: '',
-    type: QuestionType.freeText,
+    type: QuestionType.fillBlanks,
   ),
   Question(
     id: 'T22Q10',
     text: '',
-    type: QuestionType.freeText,
+    type: QuestionType.fillBlanks,
+  ),
+  Question(
+    id: 'T22Q11',
+    text: '',
+    type: QuestionType.fillBlanks,
   ),
 ];
 
@@ -58,28 +62,27 @@ List<Question> test22Questions = [
 at kung 5 ay MABUTI.)
 1.
 2.
-Napag-aralan na ba ninyo ang talatang sauluhin? Sagutin ng 00 o HINDI
-Habang tayo'y napapalapit sa
-katapusan, ang tao'y magiging
-malapit na ang pagdating ni Jesus. At sasabihin ng iba,"
-sa itinuturo ng Bibliya na
-ang aking Panginoon." (Par. 1)
+
+
+
+
+
 3.
-Sinasabi ng Daniel 12:4 tungkol sa panahon ng katapusan n
-na "Marami ang
+
+
 at ang
 4.
-nang paroo't
+
 "(Par. 2)
 ay
-Isulat ninyo ang walong makabagong imbensyon at pamamaraan ng mabilis ng paglalakbay..
+
 (Par. 2)
 5.
-Ang araw at buwan ay
-bago dumating ang katapusan. Ito'y naganap nang taong
+
+
 (Par. 3)
 6.
-Ang mga bituin ay
+
 ito ay naganap noong Nobyembre
 7.
 (2)

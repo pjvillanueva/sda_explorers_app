@@ -1,12 +1,15 @@
 // User class definition
 class User {
-  User(this.id, this.firstName, this.lastName, this.email, this.phoneNumber);
+  User(this.id, this.firstName, this.lastName, this.email, this.phoneNumber, 
+      {this.imageUrl, this.expPoints});
 
   final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String phoneNumber;
+  final String? imageUrl;
+  final int? expPoints;
 
   // Method to convert User object to JSON map
   Map<String, dynamic> toJson() {
@@ -16,6 +19,8 @@ class User {
       'lastName': lastName,
       'email': email,
       'phoneNumber': phoneNumber,
+      'imageUrl': imageUrl,
+      'expPoints': expPoints,
     };
   }
 
@@ -27,6 +32,8 @@ class User {
       json['lastName'] as String,
       json['email'] as String,
       json['phoneNumber'] as String,
+      imageUrl: json['imageUrl'] as String?,
+      expPoints: json['expPoints'] as int? ?? 0,
     );
   }
   String get firstWordOfFirstName {

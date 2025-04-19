@@ -1,0 +1,23 @@
+{
+    "@@locale": "en",
+    "language": "English",
+    "@language": {
+        "description": "Label for language preference section",
+        "type": "text"
+    },
+    "greetingsMorning": "Good Morning!",
+    "greetingsNoon": "Good Afternoon!",
+    "greetingsEvening": "Good Evening!",
+    "greetingsSabbath": "Happy Sabbath!",
+    "homeTodaysVerse": "Today's Verse",
+    "homeLessons": "Lessons",
+    "homeLesson": "Lesson",
+    "lessonTakeTest": "Take Lesson Test",
+    "lessonTestNumber": "Lesson {number} Test",
+    "generalQuestion": "Question",
+    "generalOf": "of",
+    "generalPhone": "Phone",
+    "generalPreference": "Preferences",
+    "generalLanguage": "Language",
+    "lessonTestGuestWarning": "You need to be signed in to answer lesson tests."
+}

@@ -1,0 +1,23 @@
+{
+    "@@locale": "fil",
+    "language": "Filipino",
+    "@language": {
+        "description": "Ang label para sa seksyon ng wika",
+        "type": "text"
+    },
+    "greetingsMorning": "Magandang Umaga!",
+    "greetingsNoon": "Magandang Hapon!",
+    "greetingsEvening": "Magandang Gabi!",
+    "greetingsSabbath": "Maligayang Sabado!",
+    "homeTodaysVerse": "Talata Ng Araw",
+    "homeLessons": "Mga Aralin",
+    "homeLesson": "Aralin",
+    "lessonTakeTest": "Sagutan ang Pagsusulit ng Aralin",
+    "lessonTestNumber": "Pagsusulit ng Aralin {number}",
+    "generalQuestion": "Tanong",
+    "generalOf": "ng",
+    "generalPhone": "Telepono",
+    "generalPreference": "Mga Kagustuhan",
+    "generalLanguage": "Wika",
+    "lessonTestGuestWarning": "Kailangan mong mag-sign in upang makapag-sagot ng mga pagsusulit sa aralin."
+}

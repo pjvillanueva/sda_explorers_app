@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
-import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
-import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/logic/services/user_service.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/app_drawer.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.dart';
@@ -29,23 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    verifyUser();
+    verifyUser(context);
     super.initState();
-  }
-
-  verifyUser() async {
-    try {
-      await getUser(context);
-      var user = context.read<UserCubit>().state.user;
-      if (user == null) {
-        StorageManager().deleteData('user_id');
-        await FirebaseAuth.instance.signOut();
-      }
-    } catch (e) {
-      print(e);
-      StorageManager().deleteData('user_id');
-      await FirebaseAuth.instance.signOut();
-    }
   }
 
   void _onItemTapped(int index) {

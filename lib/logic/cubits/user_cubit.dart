@@ -17,9 +17,9 @@ class UserState {
     );
   }
 
-  UserState copyWith({User? user, UserRole? role}) {
+  UserState copyWith({User? user, UserRole? role, bool clearUser = false}) {
     return UserState(
-      user: user ?? this.user,
+      user: clearUser ? null : user ?? this.user,
       role: role ?? this.role,
     );
   }
@@ -39,14 +39,14 @@ class UserCubit extends HydratedCubit<UserState> {
     emit(state.copyWith(user: user));
   }
 
-  //Update user role
+  // Update user role
   void updateRole(UserRole role) {
     emit(state.copyWith(role: role));
   }
 
   // Clear the user state
   void clearUser() {
-    emit(state.copyWith(user: null, role: guestUserRole));
+    emit(state.copyWith(clearUser: true, role: guestUserRole));
   }
 
   @override
@@ -55,7 +55,8 @@ class UserCubit extends HydratedCubit<UserState> {
   }
 
   @override
-  Map<String, dynamic> toJson(UserState state) {
+  Map<String, dynamic>? toJson(UserState state) {
+    // Optionally skip saving null user to disk
     return state.toJson();
   }
 }

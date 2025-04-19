@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-const Lesson24ContentsMap = {
+const Lesson24ContentsMap_EN = {
   'L24T1': 'Living for Jesus',
   'L24M2':
       'Be faithful until death, and I will give you the crown of life. Revelation 2:10',

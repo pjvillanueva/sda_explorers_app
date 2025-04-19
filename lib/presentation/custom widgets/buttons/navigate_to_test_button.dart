@@ -7,6 +7,7 @@ import 'package:sda_explorers_app/data/tests/dummy_test_creator.dart';
 import 'package:sda_explorers_app/data/tests/test_1.dart';
 import 'package:sda_explorers_app/data/tests/test_2.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/test_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,10 +26,8 @@ class NavigateToTest extends StatelessWidget {
                   state.role.roleName == 'Guest' ? Colors.grey : Colors.blue)),
           onPressed: () {
             if (state.role.roleName == 'Guest') {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text(AppLocalizations.of(context)!
-                    .lessonTestGuestWarning),
-              ));
+
+              AppSnackBar.show(context, message: AppLocalizations.of(context)!.lessonTestGuestWarning, type: SBMessageType.info);
               return;
             }
             Navigator.push(

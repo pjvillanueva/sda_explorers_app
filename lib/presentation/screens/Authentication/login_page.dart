@@ -198,6 +198,35 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               }
                             })),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                        width: 500.0,
+                        height: 45.0,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all(
+                                    Colors.grey.shade700)),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.person_outline_outlined,
+                                    color: Colors.white),
+                                SizedBox(width: 10.0),
+                                Text('CONTINUE AS GUEST',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                            onPressed: () async {
+                              try {
+                                await FirebaseAuth.instance.signInAnonymously();
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to sign in as guest: $e')),
+                                );
+                              }
+                            })),
                     // const SizedBox(height: 50.0),
                     // const Row(
                     //   mainAxisAlignment: MainAxisAlignment.center,

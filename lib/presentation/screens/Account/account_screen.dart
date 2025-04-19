@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sda_explorers_app/data/models/user_roles.dart';
 import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
@@ -75,7 +76,7 @@ class AccountScreen extends StatelessWidget {
                   const SizedBox(height: 5),
                   const LanguagePreference(),
                   const SizedBox(height: 5),
-                  const LogoutButton(),
+                  LogoutButton(userRole: state.role),
                 ],
               ),
             ),
@@ -187,7 +188,9 @@ class _LanguagePreferenceState extends State<LanguagePreference> {
 }
 
 class LogoutButton extends StatelessWidget {
-  const LogoutButton({super.key});
+  const LogoutButton({super.key, required this.userRole});
+
+  final UserRole userRole;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +199,7 @@ class LogoutButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: userRole.roleName == 'Guest'? Colors.blue : Colors.red,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -210,14 +213,14 @@ class LogoutButton extends StatelessWidget {
                 print('Error signing out');
               }
             },
-            child: const Row(
+            child:  Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.logout, color: Colors.white),
-                SizedBox(width: 10),
+                const Icon(Icons.logout, color: Colors.white),
+                const SizedBox(width: 10),
                 Text(
-                  'LOGOUT',
-                  style: TextStyle(color: Colors.white),
+                   userRole.roleName == 'Guest' ? 'LOGIN' : 'LOGOUT',
+                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             )),

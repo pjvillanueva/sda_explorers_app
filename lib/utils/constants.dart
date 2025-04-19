@@ -50,7 +50,7 @@ import 'package:sda_explorers_app/data/lessons/lesson_7.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_8.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_9.dart';
 
-const IS_DEV_MODE = false;
+const IS_DEV_MODE = true;
 
 const TextTheme TEXT_THEME_DEFAULT = TextTheme(
     // headline1: TextStyle(fontWeight: FontWeight.w700, fontSize: 26),

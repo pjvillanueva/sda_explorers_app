@@ -1,6 +1,30 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_1.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_10.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_11.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_12.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_13.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_14.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_15.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_16.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_17.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_18.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_19.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_2.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_20.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_21.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_22.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_23.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_24.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_3.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_4.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_5.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_6.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_7.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_8.dart';
+import 'package:sda_explorers_app/data/en_lessons/en_lesson_9.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_1.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_10.dart';
 import 'package:sda_explorers_app/data/lessons/lesson_11.dart';
@@ -58,12 +82,9 @@ const TextTheme TEXT_THEME_SMALL = TextTheme(
 
 const darkTextColor = Color(0xFF00072D);
 
-const OWNER_ROLE_ID = 'NRz4AqYcUzKolqIlxufC';
-const ADMIN_ROLE_ID = 'PxJq2zsWVs6sEqKdVdzJ';
-const GUIDE_ROLE_ID = '4M7IOwCOy4SEfWpJNyOC';
-const EXPLORER_ROLE_ID = 'QbOMk6MwGq8MTvxB0rNi';
 
-  final lessons = [
+
+  final FIL_LESSONS = [
     Lesson1ContentsMap,
     Lesson2ContentsMap,
     Lesson3ContentsMap,
@@ -89,3 +110,31 @@ const EXPLORER_ROLE_ID = 'QbOMk6MwGq8MTvxB0rNi';
     Lesson23ContentsMap,
     Lesson24ContentsMap
   ];
+
+  final EN_LESSONS = [
+    Lesson1ContentsMap_EN,
+    Lesson2ContentsMap_EN,
+    Lesson3ContentsMap_EN,
+    Lesson4ContentsMap_EN,
+    Lesson5ContentsMap_EN,
+    Lesson6ContentsMap_EN,
+    Lesson7ContentsMap_EN,
+    Lesson8ContentsMap_EN,
+    Lesson9ContentsMap_EN,
+    Lesson10ContentsMap_EN,
+    Lesson11ContentsMap_EN,
+    Lesson12ContentsMap_EN,
+    Lesson13ContentsMap_EN,
+    Lesson14ContentsMap_EN,
+    Lesson15ContentsMap_EN,
+    Lesson16ContentsMap_EN,
+    Lesson17ContentsMap_EN,
+    Lesson18ContentsMap_EN,
+    Lesson19ContentsMap_EN,
+    Lesson20ContentsMap_EN,
+    Lesson21ContentsMap_EN,
+    Lesson22ContentsMap_EN,
+    Lesson23ContentsMap_EN,
+    Lesson24ContentsMap_EN
+  ];
+

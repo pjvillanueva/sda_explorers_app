@@ -1,11 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/data/models/question.dart';
 import 'package:sda_explorers_app/data/tests/dummy_test_creator.dart';
 import 'package:sda_explorers_app/data/tests/test_1.dart';
 import 'package:sda_explorers_app/data/tests/test_2.dart';
+import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/test_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigateToTest extends StatelessWidget {
   const NavigateToTest({super.key, required this.testNumber});
@@ -14,23 +17,44 @@ class NavigateToTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(backgroundColor: WidgetStateProperty.all(Colors.blue)),
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => TestScreen(
-                        title: 'Lesson $testNumber Test',
-                        questions: _getQuestions(testNumber),
-                        // questions: test1Questions,
-                        // questions: generateRandomQuestions(10)
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (context, state) {
+        return ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(
+                  state.role.roleName == 'Guest' ? Colors.grey : Colors.blue)),
+          onPressed: () {
+            if (state.role.roleName == 'Guest') {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(AppLocalizations.of(context)!
+                    .lessonTestGuestWarning),
+              ));
+              return;
+            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TestScreen(
+                          title: AppLocalizations.of(context)!
+                              .lessonTestNumber(testNumber),
+                          questions: _getQuestions(testNumber),
                         )));
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: state.role.roleName == 'Guest',
+                child: const Icon(Icons.lock, color: Colors.white)),
+              const SizedBox(width: 10),
+              Text(
+                AppLocalizations.of(context)!.lessonTakeTest,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        );
       },
-      child: const Text(
-        'ANSWER LESSON TEST',
-        style: TextStyle(color: Colors.white),
-      ),
     );
   }
 }
@@ -58,7 +82,8 @@ List<Question> generateRandomQuestions(int count) {
   ];
 
   return List.generate(count, (_) {
-    final generator = questionGenerators[random.nextInt(questionGenerators.length)];
+    final generator =
+        questionGenerators[random.nextInt(questionGenerators.length)];
     return generator();
   });
 }

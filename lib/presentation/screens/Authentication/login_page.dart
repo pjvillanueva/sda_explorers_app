@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/password_recovery_page.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/signup_page.dart';
 
@@ -186,15 +187,27 @@ class _LoginPageState extends State<LoginPage> {
                                               email: emailController.text,
                                               password:
                                                   passwordController.text);
+
                                   //Save the UID to local storage
                                   StorageManager().saveData(
                                       'user_id', userCredential.user!.uid);
+
+                                  Future.microtask(() {
+                                    if (context.mounted) {
+                                      AppSnackBar.show(context,
+                                          message: 'Login successful',
+                                          type: SBMessageType.success);
+                                    }
+                                  });
                                 } on FirebaseAuthException catch (e) {
-                                  print(e);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Login failed')),
-                                  );
+                                  Future.microtask(() {
+                                    if (context.mounted) {
+                                      AppSnackBar.show(context,
+                                          message: 'Login failed',
+                                          error: e.message ?? '',
+                                          type: SBMessageType.error);
+                                    }
+                                  });
                                 }
                               }
                             })),

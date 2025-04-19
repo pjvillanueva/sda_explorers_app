@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sda_explorers_app/data/lessons/helpers.dart';
 import '../screens/lesson_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonListTile extends StatelessWidget {
   const LessonListTile({super.key, required this.index, required this.content});
@@ -19,13 +21,13 @@ class LessonListTile extends StatelessWidget {
         leading: CircleAvatar(
           backgroundColor: Colors.blue[700],
           child: Text(
-            '${index + 1}',
+            intToRoman(index + 1),
             style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
           ),
         ),
         title: Text(
-          'Lesson ${index + 1}',
+          '${AppLocalizations.of(context)!.homeLesson} ${index + 1}',
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(

@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
+import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/logic/services/user_service.dart';
@@ -12,6 +14,7 @@ import 'package:sda_explorers_app/presentation/screens/Account/account_screen.da
 import 'package:sda_explorers_app/presentation/screens/Tools/tools_screen.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
 import 'package:sda_explorers_app/utils/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,40 +56,58 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isDarkMode =
+        context.select((ThemeCubit themeCubit) => themeCubit.state.isDarkMode);
+
     final List<Widget> pages = [
       const ToolsScreen(),
       HomeContent(scaffoldKey: scaffoldKey),
       const AccountScreen(),
     ];
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-      ),
+    // Update system UI style based on theme
+    final overlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark,
+      systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+      systemNavigationBarIconBrightness:
+          isDarkMode ? Brightness.light : Brightness.dark,
     );
+    SystemChrome.setSystemUIOverlayStyle(overlayStyle);
 
     return Scaffold(
       key: scaffoldKey,
       endDrawer: const AppDrawer(),
       body: SafeArea(child: pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.handyman_outlined),
+            icon: Icon(
+              _selectedIndex == 0 ? Icons.handyman : Icons.handyman_outlined,
+              size: _selectedIndex == 0 ? 30 : null,
+            ),
             label: 'Tools',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
+            icon: Icon(
+              _selectedIndex == 1 ? Icons.explore : Icons.explore_outlined,
+              size: _selectedIndex == 1 ? 30 : null,
+            ),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_box_outlined),
+            icon: Icon(
+              _selectedIndex == 2
+                  ? Icons.account_box
+                  : Icons.account_box_outlined,
+              size: _selectedIndex == 2 ? 30 : null,
+            ),
             label: 'Account',
           ),
         ],
@@ -101,6 +122,7 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lessons = _getLangLessson(context);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -111,7 +133,7 @@ class HomeContent extends StatelessWidget {
           const TodaysVerseCard(),
           const SizedBox(height: 20),
           Text(
-            'Lessons',
+            AppLocalizations.of(context)!.homeLessons,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -133,5 +155,15 @@ class HomeContent extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+List<Map<String, String>> _getLangLessson(BuildContext context) {
+  var lang = context.read<LanguageCubit>().state.locale.languageCode;
+
+  if (lang == 'fil') {
+    return FIL_LESSONS;
+  } else {
+    return EN_LESSONS;
   }
 }

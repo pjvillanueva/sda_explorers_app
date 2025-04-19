@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/logic/cubits/test_cubit.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/widgets/page_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TestProgressIndicator extends StatefulWidget {
   const TestProgressIndicator(
@@ -94,12 +95,12 @@ class _TestProgressIndicatorState extends State<TestProgressIndicator>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Question ${widget.currentStep + 1}',
+                        '${AppLocalizations.of(context)!.generalQuestion} ${widget.currentStep + 1}',
                         style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        ' of ${widget.numberOfQuestions}',
+                        ' ${AppLocalizations.of(context)!.generalOf} ${widget.numberOfQuestions}',
                         style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey.shade500,

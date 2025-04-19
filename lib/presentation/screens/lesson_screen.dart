@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sda_explorers_app/presentation/custom%20widgets/buttons/navigate_to_test_button.dart';
 import 'package:sda_explorers_app/presentation/widgets/lesson_texts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonScreen extends StatelessWidget {
   const LessonScreen(
@@ -21,7 +22,7 @@ class LessonScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-            title: Text('Lesson $lessonNumber'),
+            title: Text('${AppLocalizations.of(context)!.homeLesson} $lessonNumber'),
             backgroundColor: const Color.fromRGBO(229, 172, 63, 1)),
         body: Scrollbar(
             controller: scrollController,

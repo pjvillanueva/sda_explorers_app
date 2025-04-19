@@ -263,7 +263,6 @@ class _FillInBlanksQuestionContentState
             text: TextSpan(
               children: spans,
               style: const TextStyle(
-                color: Colors.black,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),

@@ -1,4 +1,10 @@
-import 'package:sda_explorers_app/utils/constants.dart';
+
+// ignore_for_file: constant_identifier_names
+
+const OWNER_ROLE_ID = 'NRz4AqYcUzKolqIlxufC';
+const ADMIN_ROLE_ID = 'PxJq2zsWVs6sEqKdVdzJ';
+const GUIDE_ROLE_ID = '4M7IOwCOy4SEfWpJNyOC';
+const EXPLORER_ROLE_ID = 'QbOMk6MwGq8MTvxB0rNi';
 
 class UserRole {
   final String id;

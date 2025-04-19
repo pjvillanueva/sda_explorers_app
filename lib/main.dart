@@ -10,6 +10,8 @@ import 'package:sda_explorers_app/firebase_options.dart';
 import 'package:sda_explorers_app/logic/app_bloc_providers.dart';
 import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
+import 'package:sda_explorers_app/logic/services/user_service.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/loading_screen.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/home_screen.dart';
 import 'presentation/screens/Authentication/login_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -87,13 +89,22 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-              return const HomeScreen();
-            }
-            return const LoginPage();
+            // User is signed in – now verify
+            return FutureBuilder(
+              future: verifyUser(context),
+              builder: (context, verifySnapshot) {
+                if (verifySnapshot.connectionState == ConnectionState.waiting) {
+                  return const AppLoadingScreen();
+                }
+                return const HomeScreen();
+              },
+            );
+          }
+          return const LoginPage();
         });
   }
 }

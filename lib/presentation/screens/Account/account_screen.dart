@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
+import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sda_explorers_app/logic/services/storage_service.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -37,38 +42,40 @@ class AccountScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          state.user?.fullName ?? 'Unknown',
+                          state.user?.fullName ?? 'Guest Explorer',
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
-                        const Text(
-                          'Software Developer',
-                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        Text(
+                          state.role.roleName,
+                          style:
+                              const TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 10),
                   _buildInfoCard(
-                      context, 'Email', '${state.user?.email}', Icons.email),
-                  _buildInfoCard(context, 'Phone', '${state.user?.phoneNumber}',
+                      context, 'Email', state.user?.email, Icons.email),
+                  _buildInfoCard(
+                      context,
+                      AppLocalizations.of(context)!.generalPhone,
+                      state.user?.phoneNumber,
                       Icons.phone),
-                  const SizedBox(height: 5),
-                  Divider(
-                    color: Colors.grey.shade300,
-                    thickness: 1,
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    'Preferences',
-                    style: TextStyle(
+                  const SizedBox(height: 20),
+                  Text(
+                    AppLocalizations.of(context)!.generalPreference,
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 10),
                   const DarkModePreference(),
                   const SizedBox(height: 5),
                   const LanguagePreference(),
+                  const SizedBox(height: 5),
+                  const LogoutButton(),
                 ],
               ),
             ),
@@ -79,15 +86,18 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget _buildInfoCard(
-      BuildContext context, String title, String value, IconData icon) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.blueAccent),
-        title: Text(title,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        subtitle: Text(value, style: const TextStyle(fontSize: 13)),
+      BuildContext context, String title, String? value, IconData icon) {
+    return Visibility(
+      visible: value != null,
+      child: Card(
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+        child: ListTile(
+          leading: Icon(icon, color: Colors.blueAccent),
+          title: Text(title,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          subtitle: Text(value ?? '', style: const TextStyle(fontSize: 13)),
+        ),
       ),
     );
   }
@@ -101,26 +111,28 @@ class DarkModePreference extends StatefulWidget {
 }
 
 class _DarkModePreferenceState extends State<DarkModePreference> {
-  bool isDarkMode = false;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-      child: ListTile(
-        leading: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode,
-            color: Colors.blueAccent),
-        title: Text(isDarkMode ? 'Dark Mode' : 'Light Mode',
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        trailing: Switch(
-          value: isDarkMode,
-          onChanged: (value) {
-            setState(() {
-              isDarkMode = value;
-            });
-          },
-        ),
-      ),
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return Card(
+          elevation: 2,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+          child: ListTile(
+            leading: Icon(state.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                color: Colors.blueAccent),
+            title: Text(state.isDarkMode ? 'Dark Mode' : 'Light Mode',
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+            trailing: Switch(
+              value: state.isDarkMode,
+              onChanged: (value) {
+                context.read<ThemeCubit>().toggleTheme();
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -133,30 +145,82 @@ class LanguagePreference extends StatefulWidget {
 }
 
 class _LanguagePreferenceState extends State<LanguagePreference> {
-  String? selectedLanguage = 'English';
+  final Map<String, String> _languageMap = {
+    'English': 'english',
+    'Filipino': 'filipino',
+  };
+
+  String _languageKeyFromValue(String value) {
+    return _languageMap.entries.firstWhere((entry) => entry.value == value).key;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentLanguage = context.watch<LanguageCubit>().state.language;
+    final selectedLanguage = _languageKeyFromValue(currentLanguage);
+
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
       child: ListTile(
         leading: const Icon(Icons.language, color: Colors.blueAccent),
-        title: const Text('Language',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+        title: Text(AppLocalizations.of(context)!.generalLanguage,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         trailing: DropdownButton<String>(
           value: selectedLanguage,
-          items: <String>['English', 'Tagalog'].map((String value) {
+          items: _languageMap.keys.map((String key) {
             return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
+              value: key,
+              child: Text(key),
             );
           }).toList(),
           onChanged: (String? newValue) {
-            setState(() {
-              selectedLanguage = newValue;
-            });
+            if (newValue != null) {
+              final newLang = _languageMap[newValue]!;
+              context.read<LanguageCubit>().setLanguage(newLang);
+            }
           },
         ),
+      ),
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget {
+  const LogoutButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () async {
+              try {
+                StorageManager().deleteData('user_id');
+                context.read<UserCubit>().clearUser();
+                await FirebaseAuth.instance.signOut();
+              } catch (e) {
+                print('Error signing out');
+              }
+            },
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.logout, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
+                  'LOGOUT',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            )),
       ),
     );
   }

@@ -139,13 +139,24 @@ final EN_LESSONS = [
 ];
 
 List<String> AVATAR_NAMES = [
-  'bird',
-  'chicken',
-  'dog',
-  'donkey',
-  'elephant',
-  'fox',
-  'giraffe',
-  'lion',
-  'sheep'
+  'joseph',
+  'matthew',
+  'elijah',
+  'marymagdalene',
+  'sarah',
+  'daniel',
+  'deborah',
+  'peter',
+  'ruth',
+  'jacob',
+  'mothermary',
+  'david',
+  'moses',
+  'jesus',
+  'gabriel',
+  'luke',
+  'paul',
+  'johnthebaptist',
+  'gideon',
+  'abraham'
 ];

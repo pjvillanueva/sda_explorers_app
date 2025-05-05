@@ -5,6 +5,7 @@ import 'package:sda_explorers_app/logic/services/storage_service.dart';
 import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/password_recovery_page.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/signup_page.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -199,6 +200,13 @@ class _LoginPageState extends State<LoginPage> {
                                           type: SBMessageType.success);
                                     }
                                   });
+
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomeScreen()));
+
                                 } on FirebaseAuthException catch (e) {
                                   Future.microtask(() {
                                     if (context.mounted) {
@@ -232,12 +240,27 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                               try {
                                 await FirebaseAuth.instance.signInAnonymously();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen()));
+                                Future.microtask(() {
+                                  if (context.mounted) {
+                                    AppSnackBar.show(context,
+                                        message: 'Login as guest',
+                                        type: SBMessageType.success);
+                                  }
+                                });
                               } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Failed to sign in as guest: $e')),
-                                );
+                                   Future.microtask(() {
+                                    if (context.mounted) {
+                                      AppSnackBar.show(context,
+                                          message: 'Login as a guest failed',
+                                          error: e.toString(),
+                                          type: SBMessageType.error);
+                                    }
+                                  });
                               }
                             })),
                     // const SizedBox(height: 50.0),

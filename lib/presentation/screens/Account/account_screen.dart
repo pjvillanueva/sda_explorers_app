@@ -6,7 +6,12 @@ import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sda_explorers_app/logic/services/helpers.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/avatar.dart';
+import 'package:sda_explorers_app/presentation/screens/Account/components/avatar_picker_dialog.dart';
+import 'package:sda_explorers_app/presentation/screens/Authentication/login_page.dart';
+import 'package:sda_explorers_app/utils/constants.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -28,18 +33,22 @@ class AccountScreen extends StatelessWidget {
                     width: double.infinity,
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.blue,
-                          child: CircleAvatar(
-                              radius: 45,
-                              backgroundColor: Colors.blue.shade100,
-                              child: const CircleAvatar(
-                                radius: 40,
-                                backgroundColor: Colors.blue,
-                                backgroundImage:
-                                    AssetImage('assets/images/paul.jpg'),
-                              )),
+                        AppAvatar(
+                          size: 100.0,
+                          innerColor: colorFromHex(state.user?.backgroundColor),
+                          avatar: state.user?.avatar ?? 'sheep',
+                          showEditButton: true,
+                          onEdit: () {
+                            showAvatarPickerDialog(
+                              context,
+                              AVATAR_NAMES,
+                            ).then((value) {
+                              if (value != null) {
+                                // Handle avatar selection
+                                print('Selected avatar: $value');
+                              }
+                            });
+                          },
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -96,7 +105,8 @@ class AccountScreen extends StatelessWidget {
         child: ListTile(
           leading: Icon(icon, color: Colors.blueAccent),
           title: Text(title,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
           subtitle: Text(value ?? '', style: const TextStyle(fontSize: 13)),
         ),
       ),
@@ -199,7 +209,8 @@ class LogoutButton extends StatelessWidget {
         width: double.infinity,
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: userRole.roleName == 'Guest'? Colors.blue : Colors.red,
+              backgroundColor:
+                  userRole.roleName == 'Guest' ? Colors.blue : Colors.red,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -209,17 +220,20 @@ class LogoutButton extends StatelessWidget {
                 StorageManager().deleteData('user_id');
                 context.read<UserCubit>().clearUser();
                 await FirebaseAuth.instance.signOut();
+
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               } catch (e) {
-                print('Error signing out');
+                print('Error signing out $e');
               }
             },
-            child:  Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.logout, color: Colors.white),
                 const SizedBox(width: 10),
                 Text(
-                   userRole.roleName == 'Guest' ? 'LOGIN' : 'LOGOUT',
+                  userRole.roleName == 'Guest' ? 'LOGIN' : 'LOGOUT',
                   style: const TextStyle(color: Colors.white),
                 ),
               ],

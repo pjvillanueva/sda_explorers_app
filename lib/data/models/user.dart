@@ -1,7 +1,7 @@
 // User class definition
 class User {
   User(this.id, this.firstName, this.lastName, this.email, this.phoneNumber, 
-      {this.imageUrl, this.expPoints});
+      {this.imageUrl, this.avatar, this.backgroundColor, this.expPoints});
 
   final String id;
   final String firstName;
@@ -9,6 +9,8 @@ class User {
   final String email;
   final String phoneNumber;
   final String? imageUrl;
+  final String? avatar;
+  final String? backgroundColor;
   final int? expPoints;
 
   // Method to convert User object to JSON map
@@ -20,6 +22,8 @@ class User {
       'email': email,
       'phoneNumber': phoneNumber,
       'imageUrl': imageUrl,
+      'avatar': avatar,
+      'backgroundColor': backgroundColor,
       'expPoints': expPoints,
     };
   }
@@ -33,6 +37,8 @@ class User {
       json['email'] as String,
       json['phoneNumber'] as String,
       imageUrl: json['imageUrl'] as String?,
+      avatar: json['avatar'] as String?,
+      backgroundColor: json['backgroundColor'] as String?,
       expPoints: json['expPoints'] as int? ?? 0,
     );
   }
@@ -42,5 +48,10 @@ class User {
 
   String get fullName {
     return '$firstName $lastName';
+  }
+
+  @override
+  String toString() {
+    return 'User{id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, imageUrl: $imageUrl, avatar: $avatar, backgroundColor: $backgroundColor, expPoints: $expPoints}';
   }
 }

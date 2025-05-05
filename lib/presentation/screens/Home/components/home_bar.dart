@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sda_explorers_app/logic/services/helpers.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/avatar.dart';
 
 // ignore: must_be_immutable
 class HomeBar extends StatelessWidget {
@@ -22,18 +24,10 @@ class HomeBar extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      radius: 27,
-                      backgroundColor: Colors.blue,
-                      child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Colors.blue.shade100,
-                          child: const CircleAvatar(
-                            radius: 22,
-                            backgroundColor: Colors.blue,
-                            backgroundImage:
-                                AssetImage('assets/images/paul.jpg'),
-                          )),
+                    AppAvatar(
+                      size: 54.0,
+                      innerColor: colorFromHex(state.user?.backgroundColor),
+                      avatar: state.user?.avatar ?? 'sheep',
                     ),
                     const SizedBox(width: 10),
                     Column(

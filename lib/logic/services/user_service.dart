@@ -9,33 +9,36 @@ import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/internet_service.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
 
-verifyUser(BuildContext context) async {
+Future<bool> verifyUser(BuildContext context) async {
   try {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     if (currentUser == null) {
       await _signOut();
-      return;
+      return false;
     }
 
     if (currentUser.isAnonymous) {
       await StorageManager().deleteData('user_id');
       context.read<UserCubit>().clearUser();
-      return;
+      return true;
     }
 
     await getUser(context);
     var user = context.read<UserCubit>().state.user;
+    print('User: $user');
 
     if (user == null || user.id.isEmpty) {
       await _signOut();
-      return;
+      return false;
     }
 
     await getUserRole(user.id, context);
+    return true;
   } catch (e) {
     await _signOut();
   }
+  return false;
 }
 
 Future<void> getUser(BuildContext context) async {
@@ -63,6 +66,10 @@ Future<void> getUser(BuildContext context) async {
         userData['lastName'] ?? '',
         userData['email'] ?? '',
         userData['phoneNumber'] ?? '',
+        imageUrl: userData['imageUrl'] ?? '',
+        avatar: userData['avatar'] ?? 'sheep',
+        backgroundColor: userData['backgroundColor'] ?? '#FF80A3D9',
+        expPoints: userData['expPoints'] ?? 0,
       );
 
       context.read<UserCubit>().updateUser(user);
@@ -85,7 +92,7 @@ Future<void> getUserRole(String userId, BuildContext context) async {
     if (await isConnected() == false) {
       return;
     }
-    
+
     final firestore = FirebaseFirestore.instance;
     final querySnapshot = await firestore
         .collection('userRoles')

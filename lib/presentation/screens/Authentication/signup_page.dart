@@ -2,8 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/data/lessons/helpers.dart';
+import 'package:sda_explorers_app/data/models/user_roles.dart';
+import 'package:sda_explorers_app/logic/services/helpers.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/login_page.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/home_screen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -179,14 +183,20 @@ class _SignupPageState extends State<SignupPage> {
                           onPressed: () async {
                             try {
                               if (_formKey.currentState!.validate()) {
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instance
-                                        .createUserWithEmailAndPassword(
-                                            email: emailController.text,
-                                            password: passwordController.text);
+                                final auth = FirebaseAuth.instance;
+                                final firestore = FirebaseFirestore.instance;
 
-                                // Save user data to Firestore
-                                await FirebaseFirestore.instance
+                                String userRoleId = generateUUID();
+                                String explorerId = generateUUID();
+
+                                UserCredential userCredential =
+                                    await auth.createUserWithEmailAndPassword(
+                                        email: emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim());
+
+                                // Save user
+                                await firestore
                                     .collection('users')
                                     .doc(userCredential.user!.uid)
                                     .set({
@@ -195,17 +205,55 @@ class _SignupPageState extends State<SignupPage> {
                                   'lastName': lastController.text.trim(),
                                   'phoneNumber': phoneController.text.trim(),
                                   'email': emailController.text.trim(),
+                                  'imageUrl': "",
+                                  'avatar': getRandomAvatarName(),
+                                  'backgroundColor': colorToHex(generateAvatarColor()),
+                                  'expPoints': 0,
                                   'createdAt': FieldValue.serverTimestamp(),
                                 });
-                                StorageManager().saveData(
-                                    'user_id', userCredential.user!.uid);
+
+                                //Save user role
+                                await firestore
+                                    .collection('userRoles')
+                                    .doc(userRoleId)
+                                    .set({
+                                  'id': userRoleId,
+                                  'userId': userCredential.user!.uid,
+                                  'roleId': EXPLORER_ROLE_ID,
+                                });
+
+                                //Save explorer object
+                                await firestore
+                                    .collection('explorers')
+                                    .doc(explorerId)
+                                    .set({
+                                  'id': explorerId,
+                                  'userId': userCredential.user!.uid,
+                                  'allowedLessons':
+                                      List.generate(24, (i) => '${i + 1}'),
+                                  'lessonAnswers': [],
+                                  'isGraduated': false,
+                                });
+
+                                Future.microtask(() {
+                                  if (context.mounted) {
+                                    AppSnackBar.show(context,
+                                        message: 'Sign up successful',
+                                        type: SBMessageType.success);
+                                  }
+                                });
+
                                 Navigator.pop(context);
                               }
                             } on FirebaseAuthException catch (e) {
-                              print(e);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Sign up failed')));
+                              Future.microtask(() {
+                                if (context.mounted) {
+                                  AppSnackBar.show(context,
+                                      message: 'Sign up failed',
+                                      error: e.toString(),
+                                      type: SBMessageType.error);
+                                }
+                              });
                             }
                           },
                           style: ButtonStyle(
@@ -278,7 +326,7 @@ class _SignupPageState extends State<SignupPage> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>  const LoginPage()));
+                                      builder: (context) => const LoginPage()));
                             },
                           ),
                         ],

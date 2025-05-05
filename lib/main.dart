@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -89,25 +88,23 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // User is signed in – now verify
-            return FutureBuilder(
-              future: verifyUser(context),
-              builder: (context, verifySnapshot) {
-                if (verifySnapshot.connectionState == ConnectionState.waiting) {
-                  return const AppLoadingScreen();
-                }
-                return const HomeScreen();
-              },
-            );
-          }
+    return FutureBuilder<bool>(
+      future: verifyUser(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const AppLoadingScreen(); 
+        }
+        final isLoggedIn = snapshot.data ?? false;
+        if (isLoggedIn) {
+          return const HomeScreen();
+        } else {
           return const LoginPage();
-        });
+        }
+      },
+    );
   }
 }
+
 
 //Tagalog Bible Version - Ang Biblia (1905)
 //Ui theme reference: https://dribbble.com/shots/22868289-KwikQuiz-App-UI-Gamification
@@ -124,8 +121,6 @@ class AuthWrapper extends StatelessWidget {
 //Register/assign student
 //Find Teacher 
 //Images
-
-
 //ROLES
 //GUEST - default role, can read and answer lessons (but no one to check them)
 //STUDENT - can read and answer lessons, can apply as a student of a teacher, can apply as a teacher once lessons are completed

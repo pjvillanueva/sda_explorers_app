@@ -36,7 +36,7 @@ Future<String?> showAvatarPickerDialog(BuildContext context, List<String> avatar
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text('Cancel', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
           ),
         ],
       );

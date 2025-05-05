@@ -27,7 +27,7 @@ class HomeBar extends StatelessWidget {
                     AppAvatar(
                       size: 54.0,
                       innerColor: colorFromHex(state.user?.backgroundColor),
-                      avatar: state.user?.avatar ?? 'sheep',
+                      avatar: state.user?.avatar ?? 'matthew',
                     ),
                     const SizedBox(width: 10),
                     Column(

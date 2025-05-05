@@ -67,7 +67,7 @@ Future<void> getUser(BuildContext context) async {
         userData['email'] ?? '',
         userData['phoneNumber'] ?? '',
         imageUrl: userData['imageUrl'] ?? '',
-        avatar: userData['avatar'] ?? 'sheep',
+        avatar: userData['avatar'] ?? 'matthew',
         backgroundColor: userData['backgroundColor'] ?? '#FF80A3D9',
         expPoints: userData['expPoints'] ?? 0,
       );

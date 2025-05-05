@@ -36,7 +36,7 @@ class AccountScreen extends StatelessWidget {
                         AppAvatar(
                           size: 100.0,
                           innerColor: colorFromHex(state.user?.backgroundColor),
-                          avatar: state.user?.avatar ?? 'sheep',
+                          avatar: state.user?.avatar ?? 'matthew',
                           showEditButton: true,
                           onEdit: () {
                             showAvatarPickerDialog(

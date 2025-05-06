@@ -42,6 +42,31 @@ class User {
       expPoints: json['expPoints'] as int? ?? 0,
     );
   }
+
+  copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? phoneNumber,
+    String? imageUrl,
+    String? avatar,
+    String? backgroundColor,
+    int? expPoints,
+  }) {
+    return User(
+      id ?? this.id,
+      firstName ?? this.firstName,
+      lastName ?? this.lastName,
+      email ?? this.email,
+      phoneNumber ?? this.phoneNumber,
+      imageUrl: imageUrl ?? this.imageUrl,
+      avatar: avatar ?? this.avatar,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      expPoints: expPoints ?? this.expPoints,
+    );
+  }
+  
   String get firstWordOfFirstName {
     return firstName.split(' ').first;
   }

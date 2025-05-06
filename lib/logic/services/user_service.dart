@@ -8,6 +8,8 @@ import 'package:sda_explorers_app/data/models/user_roles.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/internet_service.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/loading_indicator.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 
 Future<bool> verifyUser(BuildContext context) async {
   try {
@@ -34,6 +36,13 @@ Future<bool> verifyUser(BuildContext context) async {
     }
 
     await getUserRole(user.id, context);
+    var role = context.read<UserCubit>().state.role;
+
+    if (role == null || role.roleName.isEmpty) {
+      await _signOut();
+      return false;
+    }
+    await getRoleData(user.id, role.roleId, context);
     return true;
   } catch (e) {
     await _signOut();
@@ -44,6 +53,8 @@ Future<bool> verifyUser(BuildContext context) async {
 Future<void> getUser(BuildContext context) async {
   try {
     if (await isConnected() == false) {
+      AppSnackBar.show(context,
+          message: 'Not connected to the internet', type: SBMessageType.info);
       return;
     }
 
@@ -75,6 +86,8 @@ Future<void> getUser(BuildContext context) async {
       context.read<UserCubit>().updateUser(user);
     } else {
       print('User not found');
+      AppSnackBar.show(context,
+          message: 'User not found', type: SBMessageType.error);
       return;
     }
   } catch (e) {
@@ -90,6 +103,8 @@ _signOut() async {
 Future<void> getUserRole(String userId, BuildContext context) async {
   try {
     if (await isConnected() == false) {
+      AppSnackBar.show(context,
+          message: 'Not connected to the internet', type: SBMessageType.info);
       return;
     }
 
@@ -109,6 +124,83 @@ Future<void> getUserRole(String userId, BuildContext context) async {
     }
   } catch (e) {
     print('Error getting user role: $e');
+  }
+}
+
+Future<void> getRoleData(
+    String userId, String roleId, BuildContext context) async {
+  try {
+    if (await isConnected() == false) {
+      AppSnackBar.show(context,
+          message: 'Not connected to the internet', type: SBMessageType.info);
+      return;
+    }
+
+    String colName = '';
+
+    final firestore = FirebaseFirestore.instance;
+
+    if (roleId == OWNER_ROLE_ID) {
+      colName = 'admins';
+    } else if (roleId == ADMIN_ROLE_ID) {
+      colName = 'admins';
+    } else if (roleId == GUIDE_ROLE_ID) {
+      colName = 'guides';
+    } else if (roleId == EXPLORER_ROLE_ID) {
+      colName = 'explorers';
+    } else {
+      print('Do nothing for guest role');
+      return;
+    }
+
+    final querySnapshot = await firestore
+        .collection(colName)
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final doc = querySnapshot.docs.first;
+      var roleData = doc.data();
+      context.read<UserCubit>().updateRoleData(roleData);
+    } else {
+      print('No user role data found for user ID: $userId');
+      context.read<UserCubit>().updateRoleData(null);
+    }
+  } catch (e) {
+    print('Error getting user role: $e');
+    context.read<UserCubit>().updateRoleData(null);
+  }
+}
+
+Future<void> updateUser(BuildContext context, String? userId,
+    Map<String, dynamic> updatedData) async {
+  try {
+    if (userId == null) {
+      AppSnackBar.show(context,
+          message: 'User ID is null', type: SBMessageType.error);
+      return;
+    }
+
+    if (await isConnected() == false) {
+      AppSnackBar.show(context,
+          message: 'Not connected to the internet', type: SBMessageType.info);
+      return;
+    }
+
+    showLoading(context);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .update(updatedData);
+
+    Navigator.pop(context);
+
+    AppSnackBar.show(context,
+        message: 'Updated user successfully', type: SBMessageType.success);
+  } catch (e) {
+    print('Error updating user: $e');
+    AppSnackBar.show(context,
+        message: 'User update failed', type: SBMessageType.error);
   }
 }
 

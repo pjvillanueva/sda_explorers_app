@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sda_explorers_app/data/models/explorer.dart';
-import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/theme_cubit.dart';
 import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:sda_explorers_app/logic/services/user_service.dart';
@@ -11,9 +10,9 @@ import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.
 import 'package:sda_explorers_app/presentation/screens/Home/components/todays_verse_card.dart';
 import 'package:sda_explorers_app/presentation/screens/Account/account_screen.dart';
 import 'package:sda_explorers_app/presentation/screens/Home/home_service.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/screens/LessonList/lesson_list_section.dart';
 import 'package:sda_explorers_app/presentation/screens/Tools/tools_screen.dart';
-import 'package:sda_explorers_app/presentation/widgets/lesson_list_tile.dart';
-import 'package:sda_explorers_app/utils/constants.dart';
+import 'package:sda_explorers_app/presentation/widgets/explorer_list_tile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -84,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Tools',
               ),
               BottomNavigationBarItem(
-                icon: getMainIcon(_selectedIndex == 1, state.role.roleName),
-                label: getMainLabel(state.role.roleName),
+                icon: getMainIcon(_selectedIndex == 1, state.role?.roleName),
+                label: getMainLabel(state.role?.roleName),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -110,7 +109,6 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lessons = _getLangLessson(context);
 
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
@@ -126,40 +124,16 @@ class HomeContent extends StatelessWidget {
 
               //Show this if the user is a guest or explorer
               Visibility(
-                  visible: state.role.roleName == 'Guest' ||
-                      state.role.roleName == 'Explorer',
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.homeLessons,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: lessons.length,
-                        itemBuilder: (context, index) {
-                          return LessonListTile(
-                            index: index,
-                            content: lessons[index],
-                          );
-                        },
-                      ),
-                    ],
-                  )),
+                  visible: state.role?.roleName == 'Guest' ||
+                      state.role?.roleName == 'Explorer',
+                  child: const LessonListSection()),
               //Show this if the user is a guide
               Visibility(
-                visible: state.role.roleName == 'Guide',
+                visible: state.role?.roleName == 'Guide',
                 maintainState: true,
                 child: FutureBuilder<List<Explorer>>(
-                  future: state.role.roleName == 'Guide'
-                      ? fetchMyExplorers()
+                  future: state.role?.roleName == 'Guide'
+                      ? fetchMyExplorers(context, state.user?.id)
                       : Future.value([]),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -187,10 +161,7 @@ class HomeContent extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: students.length,
                             itemBuilder: (context, index) {
-                              // return LessonListTile(
-                              //   index: index,
-                              //   content: students[index],
-                              // );
+                              return ExplorerListTile(explorer: students[index]);                        
                             },
                           ),
                         ],
@@ -207,17 +178,8 @@ class HomeContent extends StatelessWidget {
   }
 }
 
-List<Map<String, String>> _getLangLessson(BuildContext context) {
-  var lang = context.read<LanguageCubit>().state.locale.languageCode;
 
-  if (lang == 'fil') {
-    return FIL_LESSONS;
-  } else {
-    return EN_LESSONS;
-  }
-}
-
-getMainIcon(bool isSelected, String roleName) {
+getMainIcon(bool isSelected, String? roleName) {
   switch (roleName) {
     case 'Owner':
       return Icon(
@@ -252,7 +214,7 @@ getMainIcon(bool isSelected, String roleName) {
   }
 }
 
-getMainLabel(String roleName) {
+getMainLabel(String? roleName) {
   switch (roleName) {
     case 'Owner':
       return 'Manage';

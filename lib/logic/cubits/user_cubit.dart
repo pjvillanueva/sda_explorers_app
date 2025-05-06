@@ -8,12 +8,12 @@ class UserState {
   UserState({required this.user, required this.role, this.roleData});
 
   final User? user;
-  final UserRole role;
+  final UserRole? role;
   final dynamic roleData;
 
   Map<String, dynamic> toJson() => {
         'user': user?.toJson(),
-        'role': role.toJson(),
+        'role': role?.toJson(),
         'roleData': roleData,
       };
 
@@ -38,12 +38,12 @@ class UserState {
   String toString() => 'user: $user role: $role roleData: $roleData';
 
   User? get getUser => user;
-  UserRole get getRole => role;
+  UserRole? get getRole => role;
   dynamic get getRoleData {
-    if (role.roleName == "Guide") {
+    if (role?.roleName == "Guide") {
       return roleData as Guide;
     }
-    if (role.roleName == "Explorer") {
+    if (role?.roleName == "Explorer") {
       return roleData as Explorer;
     }
     return roleData;
@@ -61,6 +61,11 @@ class UserCubit extends HydratedCubit<UserState> {
   // Update user role
   void updateRole(UserRole role) {
     emit(state.copyWith(role: role));
+  }
+
+  // Update user role data
+  void updateRoleData(dynamic roleData) {
+    emit(state.copyWith(roleData: roleData));
   }
 
   // Clear the user state

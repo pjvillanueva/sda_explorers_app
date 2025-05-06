@@ -8,7 +8,9 @@ import 'package:sda_explorers_app/logic/cubits/user_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sda_explorers_app/logic/services/helpers.dart';
 import 'package:sda_explorers_app/logic/services/storage_service.dart';
+import 'package:sda_explorers_app/logic/services/user_service.dart';
 import 'package:sda_explorers_app/presentation/custom%20widgets/avatar.dart';
+import 'package:sda_explorers_app/presentation/custom%20widgets/loading_indicator.dart';
 import 'package:sda_explorers_app/presentation/screens/Account/components/avatar_picker_dialog.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/login_page.dart';
 import 'package:sda_explorers_app/utils/constants.dart';
@@ -42,10 +44,13 @@ class AccountScreen extends StatelessWidget {
                             showAvatarPickerDialog(
                               context,
                               AVATAR_NAMES,
-                            ).then((value) {
+                            ).then((value) async {
                               if (value != null) {
-                                // Handle avatar selection
-                                print('Selected avatar: $value');
+                                await updateUser(context, state.user?.id, {
+                                  'avatar': value
+                                });
+                                context.read<UserCubit>().updateUser(
+                                    state.user?.copyWith(avatar: value));
                               }
                             });
                           },
@@ -57,7 +62,7 @@ class AccountScreen extends StatelessWidget {
                               fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          state.role.roleName,
+                          state.role?.roleName ?? 'Guest',
                           style:
                               const TextStyle(fontSize: 15, color: Colors.grey),
                         ),
@@ -200,7 +205,7 @@ class _LanguagePreferenceState extends State<LanguagePreference> {
 class LogoutButton extends StatelessWidget {
   const LogoutButton({super.key, required this.userRole});
 
-  final UserRole userRole;
+  final UserRole? userRole;
 
   @override
   Widget build(BuildContext context) {
@@ -210,17 +215,19 @@ class LogoutButton extends StatelessWidget {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor:
-                  userRole.roleName == 'Guest' ? Colors.blue : Colors.red,
+                  userRole?.roleName == 'Guest' ? Colors.blue : Colors.red,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
             onPressed: () async {
               try {
+                showLoading(context);
                 StorageManager().deleteData('user_id');
                 context.read<UserCubit>().clearUser();
                 await FirebaseAuth.instance.signOut();
-
+                
+                Navigator.pop(context); // Close the loading dialog
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               } catch (e) {
@@ -233,7 +240,7 @@ class LogoutButton extends StatelessWidget {
                 const Icon(Icons.logout, color: Colors.white),
                 const SizedBox(width: 10),
                 Text(
-                  userRole.roleName == 'Guest' ? 'LOGIN' : 'LOGOUT',
+                  userRole?.roleName == 'Guest' ? 'LOGIN' : 'LOGOUT',
                   style: const TextStyle(color: Colors.white),
                 ),
               ],

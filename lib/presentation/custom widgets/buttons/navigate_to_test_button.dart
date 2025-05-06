@@ -23,9 +23,9 @@ class NavigateToTest extends StatelessWidget {
         return ElevatedButton(
           style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(
-                  state.role.roleName == 'Guest' ? Colors.grey : Colors.blue)),
+                  state.role?.roleName == 'Guest' ? Colors.grey : Colors.blue)),
           onPressed: () {
-            if (state.role.roleName == 'Guest') {
+            if (state.role?.roleName == 'Guest') {
 
               AppSnackBar.show(context, message: AppLocalizations.of(context)!.lessonTestGuestWarning, type: SBMessageType.info);
               return;
@@ -43,7 +43,7 @@ class NavigateToTest extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Visibility(
-                visible: state.role.roleName == 'Guest',
+                visible: state.role?.roleName == 'Guest',
                 child: const Icon(Icons.lock, color: Colors.white)),
               const SizedBox(width: 10),
               Text(

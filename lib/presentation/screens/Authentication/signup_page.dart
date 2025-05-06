@@ -7,7 +7,6 @@ import 'package:sda_explorers_app/data/models/user_roles.dart';
 import 'package:sda_explorers_app/logic/services/helpers.dart';
 import 'package:sda_explorers_app/presentation/custom%20widgets/snackbar.dart';
 import 'package:sda_explorers_app/presentation/screens/Authentication/login_page.dart';
-import 'package:sda_explorers_app/presentation/screens/Home/home_screen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -229,6 +228,7 @@ class _SignupPageState extends State<SignupPage> {
                                     .set({
                                   'id': explorerId,
                                   'userId': userCredential.user!.uid,
+                                  'guideId': '', // Use deeplink to get guideId or something
                                   'allowedLessons':
                                       List.generate(24, (i) => '${i + 1}'),
                                   'lessonAnswers': [],

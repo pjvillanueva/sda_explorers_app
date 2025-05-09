@@ -1,4 +1,3 @@
-import 'package:sda_explorers_app/data/models/answer.dart';
 import 'package:sda_explorers_app/data/models/user.dart';
 
 class Explorer {
@@ -7,7 +6,6 @@ class Explorer {
   User? user;
   String? guideId;
   List<String> allowedLessons;
-  List<LessonAnswer> lessonAnswers;
   bool? isGraduated;
 
   Explorer({
@@ -16,7 +14,6 @@ class Explorer {
     this.user,
     this.guideId,
     required this.allowedLessons,
-    required this.lessonAnswers,
     this.isGraduated,
   });
 
@@ -26,7 +23,6 @@ class Explorer {
       'userId': userId,
       'guideId': guideId,
       'allowedLessons': allowedLessons,
-      'lessonAnswers': lessonAnswers.map((e) => e.toJson()).toList(),
       'isGraduated': isGraduated,
     };
   }
@@ -37,15 +33,12 @@ class Explorer {
       userId: json['userId'] as String,
       guideId: json['guideId'] as String?,
       allowedLessons: List<String>.from(json['allowedLessons']),
-      lessonAnswers: (json['lessonAnswers'] as List<dynamic>?)
-          ?.map((e) => LessonAnswer.fromJson(e))
-          .toList() ??
-          [],
+   
       isGraduated: json['isGraduated'] as bool?,
     );
   }
 
   @override
   String toString() =>
-      'Explorer: { id: $id, userId: $userId, guideId: $guideId, allowedLessons: $allowedLessons, lessonAnswers: $lessonAnswers, isGraduated: $isGraduated}';
+      'Explorer: { id: $id, userId: $userId, guideId: $guideId, allowedLessons: $allowedLessons, isGraduated: $isGraduated}';
 }

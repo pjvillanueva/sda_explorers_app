@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sda_explorers_app/data/daily_verses/daily_verse_2025_en.dart';
 import 'package:sda_explorers_app/data/daily_verses/daily_verse_2025_fil.dart';
 import 'package:sda_explorers_app/logic/cubits/language_cubit.dart';
+import 'package:sda_explorers_app/presentation/screens/Home/components/home_bar.dart';
 import 'package:sda_explorers_app/utils/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -42,20 +43,20 @@ class TodaysVerseCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Container(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              //   decoration: const BoxDecoration(
-              //       borderRadius: BorderRadius.all(Radius.circular(40.0)),
-              //       color: Colors.white),
-              //   child: Row(children: [
-              //     const GoldCoin(size: 25),
-              //     const SizedBox(width: 5),
-              //     Text('120',
-              //         style:
-              //             GoogleFonts.roboto(fontSize: 18, color: Colors.black))
-              //   ]),
-              // ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                    color: Colors.white),
+                child: Row(children: [
+                  const GoldCoin(size: 25),
+                  const SizedBox(width: 5),
+                  Text('120',
+                      style:
+                          GoogleFonts.roboto(fontSize: 18, color: Colors.black))
+                ]),
+              ),
               const SizedBox.shrink(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

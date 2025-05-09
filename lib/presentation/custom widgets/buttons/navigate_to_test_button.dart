@@ -34,6 +34,7 @@ class NavigateToTest extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => TestScreen(
+                          lessonNumber: testNumber,
                           title: AppLocalizations.of(context)!
                               .lessonTestNumber(testNumber),
                           questions: _getQuestions(testNumber),

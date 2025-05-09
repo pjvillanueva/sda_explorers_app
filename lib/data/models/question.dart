@@ -16,7 +16,6 @@ class Question {
       this.answer,
       this.readOnly = false,
       this.isChecked = false,
-      this.isCorrect,
       this.instructionText,
       this.choices = const [],
       this.answersNeeded = 1});
@@ -27,7 +26,6 @@ class Question {
   bool readOnly;
   bool isChecked;
   dynamic answer;
-  bool? isCorrect;
   String? instructionText;
   int answersNeeded;
 }

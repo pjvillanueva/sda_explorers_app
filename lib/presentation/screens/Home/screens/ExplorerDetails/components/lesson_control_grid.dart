@@ -14,7 +14,7 @@ class LessonControlGrid extends StatelessWidget {
     return BlocBuilder<ExplorerDetailCubit, ExplorerDetailState>(
       builder: (context, state) {
         return SizedBox(
-          height: 300,
+          height: 270,
           child: GridView.builder(
             padding: const EdgeInsets.all(16),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

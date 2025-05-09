@@ -24,6 +24,7 @@ class ExplorerDetailScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
@@ -45,7 +46,25 @@ class ExplorerDetailScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  LessonControlGrid(explorerId: explorer.id)
+                  Text(
+                    'Controls',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  LessonControlGrid(explorerId: explorer.id),
+                  Text(
+                    'Tests',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  //get explorers tests
+                  // FutureBuilder<List<ExplorerAnswers>>(future: , builder: builder)
                 ],
               ),
             ),

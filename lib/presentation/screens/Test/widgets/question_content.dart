@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sda_explorers_app/data/models/answer.dart';
 import 'package:sda_explorers_app/data/models/question.dart';
 import 'package:sda_explorers_app/logic/cubits/test_cubit.dart';
 import 'package:sda_explorers_app/presentation/screens/Test/widgets/question_actions.dart';
@@ -21,7 +22,8 @@ getQuestionContent(Question question) {
     case QuestionType.trueOrFalse:
       return TrueFalseQuestionContent(question: question);
     case QuestionType.falseMultiple:
-      return MultipleChoiceQuestionContent(question: question, selectedColor: Colors.red);
+      return MultipleChoiceQuestionContent(
+          question: question, selectedColor: Colors.red);
     default:
       return Container();
   }
@@ -45,8 +47,10 @@ class FreeTextQuestionContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final savedAnswers = context.read<TestCubit>().loadAnswer(question.id);
     _answerController.text =
-        context.read<TestCubit>().loadAnswer(question.id) ?? '';
+        savedAnswers.isNotEmpty ? savedAnswers[0].answer : '';
+
     return Column(
       children: [
         const SizedBox(height: 16),
@@ -77,9 +81,10 @@ class FreeTextQuestionContent extends StatelessWidget {
               QuestionActions(
                 submit: () {
                   if (_formKey.currentState?.validate() ?? false) {
+                    final answer = Answer(answer: _answerController.text);
                     context
                         .read<TestCubit>()
-                        .submit(question.id, _answerController.text);
+                        .submit(context, question.id, [answer]);
                   }
                 },
               )
@@ -112,8 +117,12 @@ class _EnumerateQuestionContentState extends State<EnumerateQuestionContent> {
   }
 
   void _initializeControllers() {
-    List<String> answers =
-        context.read<TestCubit>().loadAnswer(widget.question.id) ?? [];
+    final savedAnswers =
+        context.read<TestCubit>().loadAnswer(widget.question.id);
+
+    List<String> answers = savedAnswers.isNotEmpty
+        ? savedAnswers.map((e) => e.answer).toList()
+        : [];
 
     controllers = List.generate(
       widget.question.answersNeeded,
@@ -174,7 +183,15 @@ class _EnumerateQuestionContentState extends State<EnumerateQuestionContent> {
               if (_formKey.currentState?.validate() ?? false) {
                 List<String> values =
                     controllers.map((controller) => controller.text).toList();
-                context.read<TestCubit>().submit(widget.question.id, values);
+
+                List<Answer> answers =
+                    values.map((value) => Answer(answer: value)).toList();
+
+                context.read<TestCubit>().submit(
+                      context,
+                      widget.question.id,
+                      answers,
+                    );
               }
             },
           )
@@ -227,18 +244,21 @@ class _FillInBlanksQuestionContentState
       List<String> values =
           controllersMap.values.map((controller) => controller.text).toList();
 
-      context.read<TestCubit>().submit(widget.question.id, values);
+      List<Answer> answers =
+          values.map((value) => Answer(answer: value)).toList();
+
+      context.read<TestCubit>().submit(context, widget.question.id, answers);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<String> answers = (context
-                .read<TestCubit>()
-                .loadAnswer(widget.question.id) as List<dynamic>?)
-            ?.map((e) => e.toString())
-            .toList() ??
-        [];
+    final savedAnswers =
+        context.read<TestCubit>().loadAnswer(widget.question.id);
+
+    List<String>? answers = savedAnswers.isNotEmpty
+        ? savedAnswers.map((e) => e.answer).toList()
+        : null;
 
     final spans = _processString(widget.question.text, answers);
 
@@ -368,7 +388,13 @@ class _SingleChoiceQuestionContentState
   }
 
   void _loadAnswer() {
-    String? answer = context.read<TestCubit>().loadAnswer(widget.question.id);
+    final savedAnswers =
+        context.read<TestCubit>().loadAnswer(widget.question.id);
+
+    String? answer = savedAnswers.isNotEmpty
+        ? savedAnswers[0].answer
+        : null;
+
     if (answer != null && widget.question.choices.contains(answer)) {
       setState(() {
         selectedChoiceIndex = widget.question.choices.indexOf(answer);
@@ -444,8 +470,13 @@ class _SingleChoiceQuestionContentState
         const SizedBox(height: 16),
         QuestionActions(submit: () {
           if (selectedChoiceIndex != null) {
-            context.read<TestCubit>().submit(widget.question.id,
-                widget.question.choices[selectedChoiceIndex!]);
+            final answer = Answer(
+              answer: widget.question.choices[selectedChoiceIndex!],
+            );
+
+            context
+                .read<TestCubit>()
+                .submit(context, widget.question.id, [answer]);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -462,7 +493,8 @@ class _SingleChoiceQuestionContentState
 
 // ignore: must_be_immutable
 class MultipleChoiceQuestionContent extends StatefulWidget {
-   MultipleChoiceQuestionContent({super.key, required this.question, this.selectedColor});
+  MultipleChoiceQuestionContent(
+      {super.key, required this.question, this.selectedColor});
 
   final Question question;
   Color? selectedColor;
@@ -494,8 +526,12 @@ class _MultipleChoiceQuestionContentState
   }
 
   void _loadSelectedChoices() {
-    final answers = context.read<TestCubit>().loadAnswer(widget.question.id)
-        as List<String>?;
+    final savedAnswers =
+        context.read<TestCubit>().loadAnswer(widget.question.id);
+        
+    final answers = savedAnswers.isNotEmpty
+        ? savedAnswers.map((e) => e.answer).toList()
+        : null;
 
     if (answers != null) {
       setState(() {
@@ -543,8 +579,9 @@ class _MultipleChoiceQuestionContentState
               margin: const EdgeInsets.only(bottom: 10),
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color:
-                    isSelected ? (widget.selectedColor ?? Colors.green.shade900) : Colors.green.shade300,
+                color: isSelected
+                    ? (widget.selectedColor ?? Colors.green.shade900)
+                    : Colors.green.shade300,
                 borderRadius: const BorderRadius.all(Radius.circular(30.0)),
               ),
               child: Row(
@@ -582,9 +619,14 @@ class _MultipleChoiceQuestionContentState
             final selectedAnswers = selectedChoices
                 .map((index) => widget.question.choices[index])
                 .toList();
+
+            final answers = selectedAnswers
+                .map((answer) => Answer(answer: answer))
+                .toList();
+
             context
                 .read<TestCubit>()
-                .submit(widget.question.id, selectedAnswers);
+                .submit(context, widget.question.id, answers);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -630,7 +672,12 @@ class _TrueFalseQuestionContentState extends State<TrueFalseQuestionContent> {
   }
 
   void _loadSelectedAnswer() {
-    String? answer = context.read<TestCubit>().loadAnswer(widget.question.id);
+    final savedAnswers =
+        context.read<TestCubit>().loadAnswer(widget.question.id);
+    String? answer = savedAnswers.isNotEmpty
+        ? savedAnswers[0].answer
+        : null;
+
     if (answer != null) {
       setState(() {
         selectedAnswer = answer == 'Tama';
@@ -711,9 +758,12 @@ class _TrueFalseQuestionContentState extends State<TrueFalseQuestionContent> {
         const SizedBox(height: 16),
         QuestionActions(submit: () {
           if (selectedAnswer != null) {
+            final answer = Answer(
+              answer: selectedAnswer! ? 'Tama' : 'Mali',
+            );
             context
                 .read<TestCubit>()
-                .submit(widget.question.id, selectedAnswer! ? 'Tama' : 'Mali');
+                .submit(context, widget.question.id, [answer]);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

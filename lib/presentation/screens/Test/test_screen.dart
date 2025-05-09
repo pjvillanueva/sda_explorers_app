@@ -6,11 +6,13 @@ import 'package:sda_explorers_app/presentation/screens/Test/widgets/question_con
 import 'package:sda_explorers_app/presentation/screens/Test/widgets/test_progress_indicator.dart';
 
 class TestScreen extends StatelessWidget {
+  final int lessonNumber;
   final String title;
   final List<Question> questions;
 
   const TestScreen({
     Key? key,
+    required this.lessonNumber,
     required this.title,
     required this.questions,
   }) : super(key: key);
@@ -25,7 +27,7 @@ class TestScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: BlocProvider<TestCubit>(
-            create: (context) => TestCubit()..setInitialValue(questions.length),
+            create: (context) => TestCubit()..setInitialValue(context, lessonNumber, questions.length),
             child: BlocBuilder<TestCubit, TestState>(
               builder: (context, state) {
                 return SingleChildScrollView(
